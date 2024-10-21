@@ -17,7 +17,7 @@ class team (models.Model):
     losses = models.PositiveIntegerField()
 
     def _str_(self):
-        return (self.team_name + " " + self.wins + " " + self.losses)
+        return self.team_name
 
 class player (models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
