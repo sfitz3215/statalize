@@ -5,10 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
 from .models import team, player, coach
-
 # Create your views here.
 
 def display_home(request):
     data = team.objects.all()
     context = {"Teams": data}
-    return render(request, '/home.html', context)
+    return render(request, 'statalize/home.html', context)
+

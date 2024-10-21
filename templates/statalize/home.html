@@ -5,8 +5,22 @@
      <title>
         Statilize
     </title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"  rel="stylesheet" />
   </head>
+<style>
+    h1{
+   border: 3px outset black;
+   background-color: orange;
+   text-align: center;
+   }
+    h2{
+    text-align: center;
+    }
+    div {
+    border: 3px outset black;
+    background-color:lightblue;
+    }
+</style>
+
   <body>
 <h1>
     Statalize
@@ -14,9 +28,12 @@
   <h2>
       Teams
   </h2>
-  {% for teams in teams %}
-  -{{team_name}}<br>
+<div>
+    Team Name
+  {% for team in statalize_app.models %}
+  {{team.team_name}} {{team.wins}}{{team.losses}}<br>
   {% endfor %}
+  </div>
   </body>
 
 </html>
