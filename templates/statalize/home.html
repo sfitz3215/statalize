@@ -1,27 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-     <title>
-        Statilize
-    </title>
-  </head>
-<style>
-    h1{
-   border: 3px outset black;
-   background-color: orange;
-   text-align: center;
-   }
-    h2{
-    text-align: center;
-    }
-    div {
-    border: 3px outset black;
-    background-color:lightblue;
-    }
-</style>
-
-  <body>
+{% extends "base.html" %}
+{% block body %}
 <h1>
     Statalize
 </h1>
@@ -34,6 +12,4 @@
   {{team.team_name}} {{team.wins}}{{team.losses}}<br>
   {% endfor %}
   </div>
-  </body>
-
-</html>
+{% endblock %}
