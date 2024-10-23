@@ -19,7 +19,7 @@ YEAR_IN_SCHOOL_CHOICES = {
 
 class team (models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    coach = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    #coach = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     team_name = models.CharField(max_length=20)
     wins = models.PositiveIntegerField()
     losses = models.PositiveIntegerField()
