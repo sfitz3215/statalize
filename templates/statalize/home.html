@@ -1,9 +1,9 @@
 
-{% extends "base.html" %}
+{% extends 'base.html' %}
 {% block body %}
 
 <h1>
-    Statalize
+    <a href="{% url 'home' %}">Statalize</a>
 </h1>
   <h2>
       Teams
@@ -16,11 +16,12 @@
 </tr>
       {% for team in Teams%}
     <tr>
-        <td>{{team.team_name}}</td>
+        <td><a href="{% url 'teams' id=team.id %}">{{team.team_name}}</a></td>
         <td>{{team.wins}}</td>
         <td>{{team.losses}}</td>
     </tr>
   {% endfor %}
+</table>
 
-  </div>
+
 {% endblock %}

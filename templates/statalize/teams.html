@@ -1,10 +1,29 @@
-{% extends base.html %}
+{% extends 'base.html' %}
 
-{% block content %}
-
-    {% for player in Players %}
-        <p>{player.player_name}</p>
-    {% endfor %}
-
+{% block body %}
+<h1>
+    <a href="{% url 'home' %}">Statalize</a>
+</h1>
+  <h2>
+      Teams
+  </h2>
+<table>
+<tr>
+    <td>Player Name</td>
+    <td>Age</td>
+    <td>Year</td>
+    <td>Height</td>
+    <td>Weight</td>
+</tr>
+      {% for player in Players %}
+    <tr>
+        <td>{{player.player_name}}</td>
+        <td>{{player.player_age}}</td>
+        <td>{{player.player_year}}</td>
+        <td>{{player.player_height}}</td>
+        <td>{{player.player_weight}}</td>
+    </tr>
+  {% endfor %}
+</table>
 
 {% endblock %}
