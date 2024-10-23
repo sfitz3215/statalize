@@ -1,17 +1,25 @@
-from enum import unique
-from tkinter.constants import CASCADE
-
 from django.db import models
-from django.db.models import CharField
 import uuid
+from django.contrib.auth.models import User
 
-fr= 'freshman'
-so= 'sophmore'
-jr= 'junior'
-sn= 'senior'
+
+FRESHMAN = "FR"
+SOPHOMORE = "SO"
+JUNIOR = "JR"
+SENIOR = "SR"
+GRADUATE = "GR"
+YEAR_IN_SCHOOL_CHOICES = {
+    FRESHMAN: "Freshman",
+    SOPHOMORE: "Sophomore",
+    JUNIOR: "Junior",
+    SENIOR: "Senior",
+    GRADUATE: "Graduate",
+}
+
 
 class team (models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    coach = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     team_name = models.CharField(max_length=20)
     wins = models.PositiveIntegerField()
     losses = models.PositiveIntegerField()
@@ -21,10 +29,10 @@ class team (models.Model):
 
 class player (models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    player = models.ForeignKey(team, on_delete=models.CASCADE)
+    plays_for = models.ForeignKey(team, on_delete=models.CASCADE)
     player_name = models.CharField(max_length=50)
     player_age = models.PositiveIntegerField()
-    player_year = models.Choices(fr, so, jr, sn)
+    player_year = models.CharField(max_length=2, choices=YEAR_IN_SCHOOL_CHOICES)
     player_height = models.CharField(max_length= 4)
     player_weight = models.CharField(max_length= 3)
 

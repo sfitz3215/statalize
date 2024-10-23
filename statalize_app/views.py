@@ -12,3 +12,8 @@ def display_home(request):
     context = {"Teams": data}
     return render(request, 'statalize/home.html', context)
 
+def display_team(request, id):
+    set_team = get_object_or_404(team, id=id)
+    teams_players = player.objects.all().filter(plays_for=set_team.id)
+    context = {"Team": set_team, "Players": teams_players}
+    return render(request, 'statalize/teams.html', context)

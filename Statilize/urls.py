@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from statalize_app.views import display_home
+from statalize_app.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', display_home, name = 'home'),
+    path('<uuid:id>/', display_team, name = 'teams')
 ]
