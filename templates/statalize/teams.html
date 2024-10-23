@@ -1,0 +1,10 @@
+{% extends base.html %}
+
+{% block content %}
+
+    {% for player in Players %}
+        <p>{player.player_name}</p>
+    {% endfor %}
+
+
+{% endblock %}
