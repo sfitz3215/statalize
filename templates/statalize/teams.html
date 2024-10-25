@@ -1,9 +1,6 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<h1>
-    <a href="{% url 'home' %}">Statalize</a>
-</h1>
   <h2>
       Teams
   </h2>
@@ -14,14 +11,46 @@
     <td>Year</td>
     <td>Height</td>
     <td>Weight</td>
+    <td>Hits</td>
+    <td>AB</td>
+    <td>BB</td>
+    <td>SO</td>
+    <td>1B</td>
+    <td>2B</td>
+    <td>3B</td>
+    <td>HR</td>
+    <td>Runs</td>
+    <td>RBI</td>
+    <td>SB</td>
+    <td>SAC</td>
+    <td>AVG</td>
+    <td>OBP</td>
+    <td>SLG</td>
+    <td>OPS</td>
 </tr>
-      {% for player in Players %}
+      {% for Player in player_stats %}
     <tr>
-        <td>{{player.player_name}}</td>
-        <td>{{player.player_age}}</td>
-        <td>{{player.player_year}}</td>
-        <td>{{player.player_height}}</td>
-        <td>{{player.player_weight}}</td>
+        <td>{{Player.name}}</td>
+        <td>{{Player.age}}</td>
+        <td>{{Player.year}}</td>
+        <td>{{Player.height}}</td>
+        <td>{{Player.weight}}</td>
+        <td>{{Player.hits}}</td>
+        <td>{{Player.AB}}</td>
+        <td>{{Player.BB}}</td>
+        <td>{{Player.SO}}</td>
+        <td>{{Player.Singles}}</td>
+        <td>{{Player.Doubles}}</td>
+        <td>{{Player.Triples}}</td>
+        <td>{{Player.HR}}</td>
+        <td>{{Player.Runs}}</td>
+        <td>{{Player.RBI}}</td>
+        <td>{{Player.SB}}</td>
+        <td>{{Player.SAC}}</td>
+        <td>{{Player.avg}}</td>
+        <td>{{Player.obp}}</td>
+        <td>{{Player.slg}}</td>
+        <td>{{Player.ops}}</td>
     </tr>
   {% endfor %}
 </table>

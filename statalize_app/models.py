@@ -1,6 +1,7 @@
 from django.db import models
 import uuid
 from django.contrib.auth.models import User
+from django.db.models import Sum, Count
 
 
 FRESHMAN = "FR"
@@ -35,10 +36,20 @@ class player (models.Model):
     player_year = models.CharField(max_length=2, choices=YEAR_IN_SCHOOL_CHOICES)
     player_height = models.CharField(max_length= 4)
     player_weight = models.CharField(max_length= 3)
-
-
+    player_hits = models.PositiveIntegerField(default=0)
+    player_AB = models.PositiveIntegerField(default=0)
+    player_BB = models.PositiveIntegerField(default=0)
+    player_SO = models.PositiveIntegerField(default=0)
+    player_Singles = models.PositiveIntegerField(default=0)
+    player_Doubles = models.PositiveIntegerField(default=0)
+    player_Triples = models.PositiveIntegerField(default=0)
+    player_HR = models.PositiveIntegerField(default=0)
+    player_Runs = models.PositiveIntegerField(default=0)
+    player_RBI = models.PositiveIntegerField(default=0)
+    player_SB = models.PositiveIntegerField(default=0)
+    player_SAC = models.PositiveIntegerField(default=0)
     def _str_(self):
-        return (self.player_name + " " + self.player_age + " " + self.player_year)
+            return (self.player_name + " " + self.player_age + " " + self.player_year)
 
 class coach (models.Model):
     coach = models.ForeignKey(team, on_delete=models.CASCADE)
