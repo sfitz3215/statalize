@@ -46,10 +46,10 @@ def display_team(request, id):
             'RBI': Player.player_RBI,
             'SB': Player.player_SB,
             'SAC': Player.player_SAC,
-            'avg': round(avg, 3),
-            'obp': round(obp, 3),
-            'slg': round(slg, 3),
-            'ops': round(ops, 3),
+            'avg': avg,
+            'obp': obp,
+            'slg': slg,
+            'ops': ops,
             'stats': Player,
         })
     for Pitcher in teams_pitchers:
@@ -75,7 +75,7 @@ def display_team(request, id):
             'Runs': Pitcher.pitcher_runs,
             'ER':Pitcher.pitcher_ER,
             'era': round(era, 2),
-            'avg': round(avg, 3),
+            'avg': avg,
             'whip': round(whip, 2),
             'stats': Pitcher,
         })
