@@ -11,6 +11,7 @@
     <td>Year</td>
     <td>Height</td>
     <td>Weight</td>
+    <td>POS</td>
     <td>Hits</td>
     <td>AB</td>
     <td>BB</td>
@@ -35,6 +36,7 @@
         <td>{{Player.year}}</td>
         <td>{{Player.height}}</td>
         <td>{{Player.weight}}</td>
+        <td>{{Player.position}}</td>
         <td>{{Player.hits}}</td>
         <td>{{Player.AB}}</td>
         <td>{{Player.BB}}</td>
@@ -51,6 +53,51 @@
         <td>{{Player.obp}}</td>
         <td>{{Player.slg}}</td>
         <td>{{Player.ops}}</td>
+    </tr>
+  {% endfor %}
+</table>
+<h2>Pitchers</h2>
+<table>
+<tr>
+    <td>Pitcher Name</td>
+    <td>Age</td>
+    <td>Year</td>
+    <td>Height</td>
+    <td>Weight</td>
+    <td>POS</td>
+    <td>G</td>
+    <td>GS</td>
+    <td>Hits</td>
+    <td>BB</td>
+    <td>SO</td>
+    <td>HR</td>
+    <td>Runs</td>
+    <td>ER</td>
+    <td>IP</td>
+    <td>ERA</td>
+    <td>WHIP</td>
+    <td>AVG</td>
+</tr>
+      {% for Pitcher in pitcher_stats %}
+    <tr>
+        <td>{{Pitcher.name}}</td>
+        <td>{{Pitcher.age}}</td>
+        <td>{{Pitcher.year}}</td>
+        <td>{{Pitcher.height}}</td>
+        <td>{{Pitcher.weight}}</td>
+        <td>{{Pitcher.position}}</td>
+        <td>{{Pitcher.games}}</td>
+        <td>{{Pitcher.GS}}</td>
+        <td>{{Pitcher.hits}}</td>
+        <td>{{Pitcher.walks}}</td>
+        <td>{{Pitcher.SO}}</td>
+        <td>{{Pitcher.HR}}</td>
+        <td>{{Pitcher.Runs}}</td>
+        <td>{{Pitcher.ER}}</td>
+        <td>{{Pitcher.IP}}</td>
+        <td>{{Pitcher.era}}</td>
+        <td>{{Pitcher.whip}}</td>
+        <td>{{Pitcher.avg}}</td>
     </tr>
   {% endfor %}
 </table>
