@@ -111,3 +111,43 @@ class coach (models.Model):
 
     def _str_(self):
         return (self.coach_name + " " + self.coach_year)
+
+class Game(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    date = models.DateField()
+    home_team = models.ForeignKey(team, related_name="home_games", on_delete=models.CASCADE)
+    away_team = models.ForeignKey(team, related_name="away_games", on_delete=models.CASCADE)
+    home_score = models.PositiveIntegerField()
+    away_score = models.PositiveIntegerField()
+    players = models.ManyToManyField(player, through='GamePlayerStats')
+    pitchers = models.ManyToManyField(pitcher, through='GamePitcherStats')
+
+class GamePlayerStats(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    player = models.ForeignKey(player, on_delete=models.CASCADE)
+    hits = models.PositiveIntegerField(default=0)
+    AB = models.PositiveIntegerField(default=0)
+    BB = models.PositiveIntegerField(default=0)
+    SO = models.PositiveIntegerField(default=0)
+    Singles = models.PositiveIntegerField(default=0)
+    Doubles = models.PositiveIntegerField(default=0)
+    Triples = models.PositiveIntegerField(default=0)
+    HR = models.PositiveIntegerField(default=0)
+    Runs = models.PositiveIntegerField(default=0)
+    RBI = models.PositiveIntegerField(default=0)
+    SB = models.PositiveIntegerField(default=0)
+    SAC = models.PositiveIntegerField(default=0)
+
+class GamePitcherStats(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    pitcher = models.ForeignKey(pitcher, on_delete=models.CASCADE)
+    SO = models.PositiveIntegerField(default=0)
+    hits = models.PositiveIntegerField(default=0)
+    walks = models.PositiveIntegerField(default=0)
+    HR = models.PositiveIntegerField(default=0)
+    IP = models.FloatField(default=0)
+    runs = models.PositiveIntegerField(default=0)
+    ER = models.PositiveIntegerField(default=0)
+    games = models.PositiveIntegerField(default=0)
+    GS = models.PositiveIntegerField(default=0)
+    AB = models.PositiveIntegerField(default=0)
