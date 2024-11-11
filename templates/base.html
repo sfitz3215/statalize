@@ -19,7 +19,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     <div class="navbar-nav">
                         <a class="nav-item nav-link" href=""><h2>Teams</h2></a>
-                        <a class="nav-item nav-link" href=""><h2>Players</h2></a>
+                        <a class="nav-item nav-link" href="{% url 'players' %}"><h2>Players</h2></a>
                         <a class="nav-item nav-link" href=""><h2>Schedule</h2></a>
                         <span class = "container rounded-3">
                             {% if user.is_authenticated %}
