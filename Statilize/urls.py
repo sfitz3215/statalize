@@ -21,5 +21,6 @@ from statalize_app.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', display_home, name = 'home'),
-    path('<uuid:id>/', display_team, name = 'teams')
+    path('<uuid:id>/', display_team, name = 'teams'),
+    path('players/', display_players, name = 'players')
 ]
