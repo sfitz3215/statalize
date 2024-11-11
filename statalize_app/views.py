@@ -59,6 +59,7 @@ def display_players(request):
 
         pitcher_stats.append({
             'name': Pitcher.pitcher_name,
+            'team': Pitcher.pitches_for,
             'age': Pitcher.pitcher_age,
             'year': Pitcher.pitcher_year,
             'height': Pitcher.pitcher_height,

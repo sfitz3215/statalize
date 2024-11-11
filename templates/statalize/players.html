@@ -61,9 +61,10 @@
   {% endfor %}
 </table>
 <h2>Pitchers</h2>
-<table>
+<table class="sortable">
 <tr>
     <td>Pitcher Name</td>
+    <td>Team</td>
     <td>Age</td>
     <td>Year</td>
     <td>Height</td>
@@ -85,6 +86,7 @@
       {% for Pitcher in pitcher_stats %}
     <tr>
         <td>{{Pitcher.name}}</td>
+        <td><a href="{% url 'teams' id=Pitcher.team.id %}">{{Pitcher.team.team_name}}</a></td>
         <td>{{Pitcher.age}}</td>
         <td>{{Pitcher.year}}</td>
         <td>{{Pitcher.height}}</td>
