@@ -114,11 +114,12 @@ class coach (models.Model):
 
 class Game(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    date = models.DateField()
+    date = models.DateTimeField()
     home_team = models.ForeignKey(team, related_name="home_games", on_delete=models.CASCADE)
     away_team = models.ForeignKey(team, related_name="away_games", on_delete=models.CASCADE)
     home_score = models.PositiveIntegerField()
     away_score = models.PositiveIntegerField()
+    winner = models.ForeignKey(team, on_delete=models.CASCADE)
     players = models.ManyToManyField(player, through='GamePlayerStats')
     pitchers = models.ManyToManyField(pitcher, through='GamePitcherStats')
 
