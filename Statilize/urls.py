@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', display_home, name = 'home'),
     path('<uuid:id>/', display_team, name = 'teams'),
-    path('players/', display_players, name = 'players')
+    path('players/', display_players, name = 'players'),
     path('logout/', logout_page, name='logout'),
     path('login/', login_page, name='login'),
 ]
