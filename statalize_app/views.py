@@ -3,7 +3,7 @@ from statalize_app.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
-from .models import team, player, coach, pitcher
+from .models import team, player, coach, pitcher, Game, GamePlayerStats, GamePitcherStats
 from .util import calculate_slg, calculate_ops, calculate_avg, calculate_obp, calculate_ERA, calculate_WHIP
 from django.db.models import Sum, Count
 
@@ -82,3 +82,24 @@ def display_team(request, id):
 
     context = {"Team": set_team, "Players": teams_players, 'player_stats': player_stats, 'pitcher_stats': pitcher_stats}
     return render(request, 'statalize/teams.html', context)
+
+def display_game(request, game_id):
+    game = get_object_or_404(Game, id=game_id)
+
+    for player_stats in GamePlayerStats.objects.filter(game=game):
+        player = player_stats.player
+        player.player_hits += player_stats.hits
+        player.player_AB += player_stats.AB
+        player.player_Runs += player_stats.Runs
+        player.player_RBI += player_stats.RBI
+        player.save()
+
+    for pitcher_stats in GamePitcherStats.objects.filter(game=game):
+        pitcher = pitcher_stats.pitcher
+        pitcher.pitcher_hits += pitcher_stats.hits
+        pitcher.pitcher_ER += pitcher_stats.ER
+        pitcher.pitcher_SO += pitcher_stats.strikeouts
+        pitcher.pitcher_IP += pitcher_stats.IP
+        pitcher.save()
+
+    return render(request)
