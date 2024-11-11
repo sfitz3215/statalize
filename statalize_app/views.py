@@ -3,11 +3,32 @@ from statalize_app.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
+from statalize_app.forms import *
 from .models import team, player, coach, pitcher
 from .util import calculate_slg, calculate_ops, calculate_avg, calculate_obp, calculate_ERA, calculate_WHIP
 from django.db.models import Sum, Count
 
 # Create your views here.
+
+def login_page(request):
+    form = AuthenticationForm(request.POST)
+    first = True
+    if form.is_valid():
+        username = form.cleaned_data["username"]
+        password = form.cleaned_data["password"]
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+        else:
+            first = False
+
+    return render(request, 'login.html', {'form': form, 'first': first})
+
+
+def logout_page(request):
+    logout(request)
+    return redirect('home')
 
 def display_home(request):
     data = team.objects.all()
