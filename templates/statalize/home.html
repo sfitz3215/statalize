@@ -1,25 +1,45 @@
 
 {% extends 'base.html' %}
 {% block body %}
-
-
-  <h2>
-      Teams
-  </h2>
-<table>
-<tr>
-    <td>Team Name</td>
-    <td>Wins</td>
-    <td>Losses</td>
-</tr>
-      {% for team in Teams%}
-    <tr>
-        <td><a href="{% url 'teams' id=team.id %}">{{team.team_name}}</a></td>
-        <td>{{team.wins}}</td>
-        <td>{{team.losses}}</td>
-    </tr>
-  {% endfor %}
+<div class = "container mt-5 pt-3 bg-light rounded-3">
+      <h2>
+          Current Team Standings:
+      </h2>
+    <table class = "sortable table">
+    <thead>
+        <tr>
+            <td>Team Name</td>
+            <td>Wins</td>
+            <td>Losses</td>
+        </tr>
+    </thead>
+          {% for team in Teams%}
+        <tr>
+            <td><a href="{% url 'teams' id=team.id %}">{{team.team_name}}</a></td>
+            <td>{{team.wins}}</td>
+            <td>{{team.losses}}</td>
+        </tr>
+      {% endfor %}
 </table>
+<div class ="container pb-3">
+</div>
+</div>
 
-
+    <div class = "container mt-5 pt-3 bg-light rounded-3">
+      <h2>
+          Upcoming Games:
+      </h2>
+    <table class = "sortable table">
+    <thead>
+        <tr>
+            <td></td>
+        </tr>
+    </thead>
+        <tr>
+            <td></td>
+        </tr>
+</table>
+<div class ="container pb-3">
+</div>
+    </div>
 {% endblock %}
