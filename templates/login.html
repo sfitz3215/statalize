@@ -1,0 +1,25 @@
+
+{% extends 'base.html' %}
+{% block body %}
+    <div id="page-container">
+        <section>
+            <div class="container">
+
+            </div>
+        </section>
+
+        <div class="container">
+            <h2>Login</h2>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                {% if not first %}
+                    <p>Incorrect Username or Password</p>
+                {% endif%}
+                <button type="submit">Login</button>
+            </form>
+        </div>
+    </div>
+
+{% endblock %}
