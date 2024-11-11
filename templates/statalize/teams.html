@@ -1,10 +1,11 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<div class = "container mt-3 bg-light rounded-3">
   <h2>
       Teams
   </h2>
-<table class="sortable">
+<table class=" sortable table">
 <tr>
     <td>Player Name</td>
     <td>Age</td>
@@ -58,8 +59,11 @@
     </tr>
   {% endfor %}
 </table>
+    <div class ="container pb-3"></div>
+</div>
+<div class = "container mt-3 bg-light rounded-3">
 <h2>Pitchers</h2>
-<table>
+<table class = "sortable table">
 <tr>
     <td>Pitcher Name</td>
     <td>Age</td>
@@ -103,5 +107,7 @@
     </tr>
   {% endfor %}
 </table>
+    <div class ="container pb-3"></div>
+</div>
 
 {% endblock %}
