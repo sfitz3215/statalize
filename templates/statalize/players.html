@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div class = "container mt-3 bg-light rounded-3">
+<div class = "container mt-5 pt-3 bg-light rounded-3">
   <h2>
-      Teams
+      Players
   </h2>
-<table class=" sortable table">
+<table class = "sortable table">
 <tr>
     <td>Player Name</td>
+  <td>Team</td>
     <td>Age</td>
     <td>Year</td>
     <td>Height</td>
@@ -34,6 +35,7 @@
       {% for Player in player_stats %}
     <tr>
         <td>{{Player.name}}</td>
+      <td><a href="{% url 'teams' id=Player.team.id %}">{{Player.team.team_name}}</a></td>
         <td>{{Player.age}}</td>
         <td>{{Player.year}}</td>
         <td>{{Player.height}}</td>
@@ -59,13 +61,16 @@
     </tr>
   {% endfor %}
 </table>
-    <div class ="container pb-3"></div>
+    <div class ="container pb-3">
 </div>
-<div class = "container mt-3 bg-light rounded-3">
+</div>
+
+<div class = "container mt-5 pt-3 bg-light rounded-3">
 <h2>Pitchers</h2>
 <table class = "sortable table">
 <tr>
     <td>Pitcher Name</td>
+    <td>Team</td>
     <td>Age</td>
     <td>Year</td>
     <td>Height</td>
@@ -87,6 +92,7 @@
       {% for Pitcher in pitcher_stats %}
     <tr>
         <td>{{Pitcher.name}}</td>
+        <td><a href="{% url 'teams' id=Pitcher.team.id %}">{{Pitcher.team.team_name}}</a></td>
         <td>{{Pitcher.age}}</td>
         <td>{{Pitcher.year}}</td>
         <td>{{Pitcher.height}}</td>
@@ -107,9 +113,7 @@
     </tr>
   {% endfor %}
 </table>
-<a href="{% url 'edit_team' team_id=Team.id %}">edit</a>
-
-    <div class ="container pb-3"></div>
+    <div class ="container pb-3">
 </div>
-
+</div>
 {% endblock %}

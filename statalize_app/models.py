@@ -101,5 +101,58 @@ class pitcher (models.Model):
         pitcher_GS = models.PositiveIntegerField(default=0)
         pitcher_AB = models.PositiveIntegerField(default=0)
 
+
         def __str__(self):
             return self.pitcher_name
+    
+
+class coach (models.Model):
+    coach = models.ForeignKey(team, on_delete=models.CASCADE)
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    coach_name = models.CharField(max_length = 50)
+    coach_year = models.PositiveIntegerField()
+
+    def _str_(self):
+        return (self.coach_name + " " + self.coach_year)
+
+class Game(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    date = models.DateTimeField()
+    home_team = models.ForeignKey(team, related_name="home_games", on_delete=models.CASCADE)
+    away_team = models.ForeignKey(team, related_name="away_games", on_delete=models.CASCADE)
+    home_score = models.PositiveIntegerField()
+    away_score = models.PositiveIntegerField()
+    winner = models.ForeignKey(team, on_delete=models.CASCADE)
+    players = models.ManyToManyField(player, through='GamePlayerStats')
+    pitchers = models.ManyToManyField(pitcher, through='GamePitcherStats')
+
+class GamePlayerStats(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    player = models.ForeignKey(player, on_delete=models.CASCADE)
+    hits = models.PositiveIntegerField(default=0)
+    AB = models.PositiveIntegerField(default=0)
+    BB = models.PositiveIntegerField(default=0)
+    SO = models.PositiveIntegerField(default=0)
+    Singles = models.PositiveIntegerField(default=0)
+    Doubles = models.PositiveIntegerField(default=0)
+    Triples = models.PositiveIntegerField(default=0)
+    HR = models.PositiveIntegerField(default=0)
+    Runs = models.PositiveIntegerField(default=0)
+    RBI = models.PositiveIntegerField(default=0)
+    SB = models.PositiveIntegerField(default=0)
+    SAC = models.PositiveIntegerField(default=0)
+
+class GamePitcherStats(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    pitcher = models.ForeignKey(pitcher, on_delete=models.CASCADE)
+    SO = models.PositiveIntegerField(default=0)
+    hits = models.PositiveIntegerField(default=0)
+    walks = models.PositiveIntegerField(default=0)
+    HR = models.PositiveIntegerField(default=0)
+    IP = models.FloatField(default=0)
+    runs = models.PositiveIntegerField(default=0)
+    ER = models.PositiveIntegerField(default=0)
+    games = models.PositiveIntegerField(default=0)
+    GS = models.PositiveIntegerField(default=0)
+    AB = models.PositiveIntegerField(default=0)
+
