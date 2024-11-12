@@ -47,12 +47,12 @@ Pitcher_Choices = {
 
 class team (models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    #coach = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    coach = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     team_name = models.CharField(max_length=20)
     wins = models.PositiveIntegerField()
     losses = models.PositiveIntegerField()
 
-    def _str_(self):
+    def __str__(self):
         return self.team_name
 
 class player (models.Model):
@@ -77,8 +77,9 @@ class player (models.Model):
     player_RBI = models.PositiveIntegerField(default=0)
     player_SB = models.PositiveIntegerField(default=0)
     player_SAC = models.PositiveIntegerField(default=0)
-    def _str_(self):
-            return (self.player_name + " " + self.player_age + " " + self.player_year)
+
+    def __str__(self):
+        return self.player_name
 
 class pitcher (models.Model):
         id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
@@ -100,14 +101,5 @@ class pitcher (models.Model):
         pitcher_GS = models.PositiveIntegerField(default=0)
         pitcher_AB = models.PositiveIntegerField(default=0)
 
-        def _str_(self):
-            return (self.player_name + " " + self.player_age + " " + self.player_year)
-
-class coach (models.Model):
-    coach = models.ForeignKey(team, on_delete=models.CASCADE)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    coach_name = models.CharField(max_length = 50)
-    coach_year = models.PositiveIntegerField()
-
-    def _str_(self):
-        return (self.coach_name + " " + self.coach_year)
+        def __str__(self):
+            return self.pitcher_name

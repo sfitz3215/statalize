@@ -28,3 +28,4 @@ def calculate_ERA(ER, IP):
     if IP == 0:
         return 0
     return (ER*9)/IP
+

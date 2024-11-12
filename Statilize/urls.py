@@ -24,4 +24,7 @@ urlpatterns = [
     path('<uuid:id>/', display_team, name = 'teams'),
     path('logout/', logout_page, name='logout'),
     path('login/', login_page, name='login'),
+    path('new_coach/', create_new_coach, name='new_coach'),
+    path('new_team/', create_new_team, name='new_team'),
+    path('<uuid:team_id>/edit_team/', edit_team, name='edit_team')
 ]

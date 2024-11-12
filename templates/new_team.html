@@ -9,19 +9,17 @@
         </section>
 
         <div class="container">
-            <h2>Login</h2>
+            <h2>New Team</h2>
 
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
-                {% if not first %}
-                    <p>Incorrect Username or Password</p>
+                {% if not new %}
+                    <p>Team name taken</p>
                 {% endif%}
-                <button type="submit">Login</button>
+                <button type="submit">Create Team</button>
             </form>
         </div>
-        <div class="container"></div>
-        <div class="container"><h4>Coach new on this platform? <a href="{% url 'new_coach' %}">Click here!</a> </h4></div>
     </div>
 
 {% endblock %}
