@@ -106,15 +106,6 @@ class pitcher (models.Model):
             return self.pitcher_name
     
 
-class coach (models.Model):
-    coach = models.ForeignKey(team, on_delete=models.CASCADE)
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    coach_name = models.CharField(max_length = 50)
-    coach_year = models.PositiveIntegerField()
-
-    def _str_(self):
-        return (self.coach_name + " " + self.coach_year)
-
 class Game(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     date = models.DateTimeField()
