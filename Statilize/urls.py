@@ -28,5 +28,6 @@ urlpatterns = [
     path('new_coach/', create_new_coach, name='new_coach'),
     path('new_team/', create_new_team, name='new_team'),
     path('teams/<uuid:team_id>/edit_team/', edit_team, name='edit_team'),
-    path('teams/<uuid:team_id>/add_player/<int:is_pitcher>/', add_player, name='add_player')
+    path('teams/<uuid:team_id>/add_player/<int:is_pitcher>/', add_player, name='add_player'),
+    path('schedule/new_game/', new_game, name='new_game')
 ]
