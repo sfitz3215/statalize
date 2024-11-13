@@ -32,31 +32,52 @@ class EditTeam(forms.Form):
             required=False
         )
 
-class GameEditForm(forms.Form):
-    home_score = forms.IntegerField(min_value=0, max_value=99)
-    away_score = forms.IntegerField(min_value=0, max_value=99)
+class GameForm(forms.ModelForm):
+    class Meta:
+        model = Game
+        fields = ('date', 'away_team', 'home_team', 'away_score', 'home_score', 'winner')
 
-class PlayerGameStats(forms.Form):
-    AB = forms.IntegerField(min_value=0, max_value=99)
-    BB = forms.IntegerField(min_value=0, max_value=99)
-    SO = forms.IntegerField(min_value=0, max_value=99)
-    Singles = forms.IntegerField(min_value=0, max_value=99)
-    Doubles = forms.IntegerField(min_value=0, max_value=99)
-    Triples = forms.IntegerField(min_value=0, max_value=99)
-    HR = forms.IntegerField(min_value=0, max_value=99)
-    Runs = forms.IntegerField(min_value=0, max_value=99)
-    RBI = forms.IntegerField(min_value=0, max_value=99)
-    SB = forms.IntegerField(min_value=0, max_value=99)
-    SAC = forms.IntegerField(min_value=0, max_value=99)
 
-class PitcherGameStats(forms.Form):
-    SO = forms.IntegerField(min_value=0, max_value=99)
-    hits = forms.IntegerField(min_value=0, max_value=99)
-    walks = forms.IntegerField(min_value=0, max_value=99)
-    HR = forms.IntegerField(min_value=0, max_value=99)
-    IP = forms.FloatField(min_value=0, max_value=99)
-    runs = forms.IntegerField(min_value=0, max_value=99)
-    ER = forms.IntegerField(min_value=0, max_value=99)
-    games = forms.IntegerField(min_value=0, max_value=99)
-    GS = forms.IntegerField(min_value=0, max_value=99)
-    AB = forms.IntegerField(min_value=0, max_value=99)
+class AwayTeamPlayerForm(forms.ModelForm):
+    class Meta:
+        model = GamePlayerStats
+        fields = ['player', 'AB', 'BB', 'SO', 'Singles', 'Doubles', 'Triples', 'HR', 'Runs', 'RBI', 'SB', 'SAC']
+
+    def __init__(self, *args, **kwargs):
+        game = kwargs.pop('game', None)
+        super().__init__(*args, **kwargs)
+        if game:
+            self.fields['player'].queryset = player.objects.filter(plays_for=game.away_team)
+
+class HomeTeamPlayerForm(forms.ModelForm):
+    class Meta:
+        model = GamePlayerStats
+        fields = ['player', 'AB', 'BB', 'SO', 'Singles', 'Doubles', 'Triples', 'HR', 'Runs', 'RBI', 'SB', 'SAC']
+
+    def __init__(self, *args, **kwargs):
+        game = kwargs.pop('game', None)
+        super().__init__(*args, **kwargs)
+        if game:
+            self.fields['player'].queryset = player.objects.filter(plays_for=game.home_team)
+
+class AwayTeamPitcherForm(forms.ModelForm):
+    class Meta:
+        model = GamePitcherStats
+        fields = ['pitcher', 'SO', 'hits', 'walks', 'HR', 'IP', 'runs', 'ER', 'games', 'GS', 'AB']
+
+    def __init__(self, *args, **kwargs):
+        game = kwargs.pop('game', None)
+        super().__init__(*args, **kwargs)
+        if game:
+            self.fields['pitcher'].queryset = pitcher.objects.filter(plays_for=game.away_team)
+
+class HomeTeamPitcherForm(forms.ModelForm):
+    class Meta:
+        model = GamePitcherStats
+        fields = ['pitcher', 'SO', 'hits', 'walks', 'HR', 'IP', 'runs', 'ER', 'games', 'GS', 'AB']
+
+    def __init__(self, *args, **kwargs):
+        game = kwargs.pop('game', None)
+        super().__init__(*args, **kwargs)
+        if game:
+            self.fields['pitcher'].queryset = pitcher.objects.filter(plays_for=game.home_team)

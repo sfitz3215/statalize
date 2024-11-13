@@ -28,5 +28,10 @@ urlpatterns = [
     path('new_coach/', create_new_coach, name='new_coach'),
     path('new_team/', create_new_team, name='new_team'),
     path('<uuid:team_id>/edit_team/', edit_team, name='edit_team'),
-    path('game/<uuid:id>/', edit_game ,name ='game_edit'),
+    path('game/', game_create ,name ='create_game'),
+    path('game/<game_id>/', game_edit, name ='edit_game'),
+    path('game/<game_id>/add_away_team_players/', add_away_team_players, name='add_away_team_players'),
+    path('game/<game_id>/add_home_team_players/', add_home_team_players, name='add_home_team_players'),
+    path('game/<game_id>/add_away_team_pitchers/', add_away_team_pitchers, name='add_away_team_pitchers'),
+    path('game/<game_id>/add_home_team_pitchers/', add_home_team_pitchers, name='add_home_team_pitchers'),
 ]

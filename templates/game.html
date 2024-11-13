@@ -1,20 +1,11 @@
 {% extends 'base.html' %}
 {% block body %}
-    <div id="page-container">
-        <section>
-            <div class="container">
-
-            </div>
-        </section>
-
-        <div class="container">
-            <h2>Edit Game</h2>
-
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Edit Game</button>
-            </form>
-        </div>
-    </div>
+<div>
+    <h2>Create/Edit</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Game</button>
+    </form>
+</div>
 {% endblock %}
