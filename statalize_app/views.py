@@ -3,7 +3,7 @@ from statalize_app.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
-from .models import team, player, pitcher, Game, GamePlayerStats, GamePitcherStats
+from .models import *
 from statalize_app.forms import *
 from .util import calculate_slg, calculate_ops, calculate_avg, calculate_obp, calculate_ERA, calculate_WHIP
 from django.db.models import Sum, Count
@@ -77,8 +77,7 @@ def edit_team(request, team_id):
     if form.is_valid():
         selected_players = form.cleaned_data["players"]
         selected_pitchers = form.cleaned_data["pitchers"]
-        print(f"Selected players: {selected_players}")
-        print(f"Selected players: {selected_pitchers}")
+        # TODO: delete based on selected
 
     return render(request, 'edit_team.html', {'form': form, 'team': set_team, 'players': team_players, 'pitchers': team_pitchers})
 
@@ -88,7 +87,8 @@ def add_player(request, team_id, is_pitcher):
         form = NewPitcher(request.POST)
     else:
         form = NewPlayer(request.POST)
-    set_team = team.objects.filter(id=team_id)
+    set_team = get_object_or_404(team, id=team_id)
+    print(set_team)
 
     if form.is_valid():
         name = form.cleaned_data["player_name"]
@@ -116,7 +116,8 @@ def logout_page(request):
 
 def display_home(request):
     data = team.objects.all()
-    context = {"Teams": data}
+    game_data = Game.objects.all()
+    context = {"Teams": data, "games": game_data}
     return render(request, 'statalize/home.html', context)
 
 def display_players(request):
@@ -257,6 +258,22 @@ def display_team(request, id):
 
     context = {"Team": set_team, "Players": teams_players, 'player_stats': player_stats, 'pitcher_stats': pitcher_stats}
     return render(request, 'statalize/teams.html', context)
+
+
+def new_game(request):
+    form = NewGame(request.POST)
+    if form.is_valid():
+        date = form.cleaned_data["date"]
+        home_team = form.cleaned_data["home_team"]
+        away_team = form.cleaned_data["away_team"]
+
+        set_game = Game(date=date, home_team=home_team, away_team=away_team)
+        set_game.save()
+
+        return redirect('home')
+
+    return render(request, 'new_game.html', {'form': form})
+
 
 def display_game(request, game_id):
     game = get_object_or_404(Game, id=game_id)

@@ -59,3 +59,9 @@ class NewPitcher(forms.Form):
     player_position = forms.ChoiceField(choices=[('SP', 'Starter'), ('RP', 'Relief'), ('N/A', 'NoPitcher')])
     player_height = forms.CharField(max_length=4, help_text='Feet\'Inches\" e.g. 5\'11\"',)
     player_weight = forms.CharField(max_length=3, help_text='Only the number (in pounds) e.g. 125')
+
+
+class NewGame(forms.Form):
+    date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
+    home_team = forms.ModelChoiceField(queryset=team.objects.all())
+    away_team = forms.ModelChoiceField(queryset=team.objects.all())
