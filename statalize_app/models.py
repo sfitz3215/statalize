@@ -114,8 +114,6 @@ class Game(models.Model):
     home_score = models.PositiveIntegerField()
     away_score = models.PositiveIntegerField()
     winner = models.ForeignKey(team, on_delete=models.CASCADE)
-    players = models.ManyToManyField(player, through='GamePlayerStats')
-    pitchers = models.ManyToManyField(pitcher, through='GamePitcherStats')
 
 class GamePlayerStats(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
@@ -146,4 +144,3 @@ class GamePitcherStats(models.Model):
     games = models.PositiveIntegerField(default=0)
     GS = models.PositiveIntegerField(default=0)
     AB = models.PositiveIntegerField(default=0)
-

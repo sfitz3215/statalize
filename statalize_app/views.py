@@ -3,7 +3,7 @@ from statalize_app.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
-from .models import team, player, pitcher, Game, GamePlayerStats, GamePitcherStats
+from statalize_app.models import *
 from statalize_app.forms import *
 from .util import calculate_slg, calculate_ops, calculate_avg, calculate_obp, calculate_ERA, calculate_WHIP
 from django.db.models import Sum, Count
@@ -223,7 +223,50 @@ def display_team(request, id):
     context = {"Team": set_team, "Players": teams_players, 'player_stats': player_stats, 'pitcher_stats': pitcher_stats}
     return render(request, 'statalize/teams.html', context)
 
-def display_game(request, game_id):
-    game = get_object_or_404(Game, id=game_id)
+def edit_game(request, id):
+    set_game = get_object_or_404(Game, id=id)
+    GameForm = GameEditForm(request.POST)
 
-    return render(request)
+    if GameForm.is_valid():
+        home_score = GameForm.cleaned_data['home_score']
+        away_score = GameForm.cleaned_date['away_score']
+
+
+
+    return render(request, 'game.html', {'Gameform': GameForm})
+
+def edit_game_player(request, gameID, teamID):
+    PlayerForm = PlayerGameStats(request.POST)
+
+    if PlayerForm.is_valid():
+        AB = PlayerForm.cleaned_data['AB']
+        BB = PlayerForm.cleaned_data['BB']
+        SO = PlayerForm.cleaned_data['SO']
+        Singles = PlayerForm.cleaned_data['Singles']
+        Doubles = PlayerForm.cleaned_data['Doubles']
+        Triples = PlayerForm.cleaned_data['Triples']
+        HR = PlayerForm.cleaned_data['HR']
+        Runs = PlayerForm.cleaned_data['Runs']
+        RBI = PlayerForm.cleaned_data['RBI']
+        SB = PlayerForm.cleaned_data['SB']
+        SAC = PlayerForm.cleaned_data['SAC']
+
+    return redirect()
+
+def edit_game_pitcher(request, gameID, teamID):
+    PitcherForm = PitcherGameStats(request.POST)
+
+    if PitcherForm.is_valid():
+        SO = PitcherForm.cleaned_data['SO']
+        hits = PitcherForm.cleaned_data['hits']
+        walks = PitcherForm.cleaned_data['walks']
+        HR = PitcherForm.cleaned_data['HR']
+        IP = PitcherForm.cleaned_data['IP']
+        runs = PitcherForm.cleaned_data['runs']
+        ER = PitcherForm.cleaned_data['ER']
+        games = PitcherForm.cleaned_data['games']
+        GS = PitcherForm.cleaned_data['GS']
+        AB = PitcherForm.cleaned_data['AB']
+
+
+    return redirect()

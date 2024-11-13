@@ -8,14 +8,13 @@
         </section>
 
         <div class="container">
-            <h2>Edit Team</h2>
+            <h2>Edit Game</h2>
 
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
-                <button type="submit">Edit Team</button>
+                <button type="submit">Edit Game</button>
             </form>
         </div>
     </div>
-
 {% endblock %}

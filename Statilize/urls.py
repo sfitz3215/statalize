@@ -27,5 +27,6 @@ urlpatterns = [
     path('login/', login_page, name='login'),
     path('new_coach/', create_new_coach, name='new_coach'),
     path('new_team/', create_new_team, name='new_team'),
-    path('<uuid:team_id>/edit_team/', edit_team, name='edit_team')
+    path('<uuid:team_id>/edit_team/', edit_team, name='edit_team'),
+    path('game/<uuid:id>/', edit_game ,name ='game_edit'),
 ]
