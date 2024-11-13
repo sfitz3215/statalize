@@ -120,6 +120,16 @@ def display_home(request):
     context = {"Teams": data, "games": game_data}
     return render(request, 'statalize/home.html', context)
 
+def display_standings(request):
+    data = team.objects.all()
+    context = {"Teams": data}
+    return render(request, 'statalize/standings.html', context)
+
+def display_schedule(request):
+    data = Game.objects.all()
+    context = {"games": data}
+    return render(request, 'statalize/schedule.html', context)
+
 def display_players(request):
     players = player.objects.all()
     pitchers = pitcher.objects.all()

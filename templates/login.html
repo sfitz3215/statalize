@@ -8,7 +8,7 @@
             </div>
         </section>
 
-        <div class="container">
+        <div class="container border mt-5 pt-3 rounded-3">
             <h2>Login</h2>
 
             <form method="post" enctype="multipart/form-data">
@@ -19,9 +19,15 @@
                 {% endif%}
                 <button type="submit">Login</button>
             </form>
+            <div class ="container pb-3"></div>
         </div>
-        <div class="container"></div>
-        <div class="container"><h4>Coach new on this platform? <a href="{% url 'new_coach' %}">Click here!</a> </h4></div>
+
+        <div class="container border mt-3 pt-3 rounded-3">
+            <h4>Coach new on this platform?
+                <a href="{% url 'new_coach' %}">Click here!</a>
+            </h4>
+            <div class ="container pb-3"></div>
+        </div>
     </div>
 
 {% endblock %}

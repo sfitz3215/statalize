@@ -22,6 +22,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', display_home, name = 'home'),
     path('teams/<uuid:id>/', display_team, name = 'teams'),
+    path('standings/', display_standings, name = 'standings'),
+    path('schedule/', display_schedule, name = 'schedule'),
     path('players/', display_players, name = 'players'),
     path('logout/', logout_page, name='logout'),
     path('login/', login_page, name='login'),
