@@ -21,13 +21,15 @@ from statalize_app.views import *
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', display_home, name = 'home'),
+    path('teams/<uuid:id>/', display_team, name = 'teams'),
     path('standings/', display_standings, name = 'standings'),
     path('schedule/', display_schedule, name = 'schedule'),
-    path('<uuid:id>/', display_team, name = 'teams'),
     path('players/', display_players, name = 'players'),
     path('logout/', logout_page, name='logout'),
     path('login/', login_page, name='login'),
     path('new_coach/', create_new_coach, name='new_coach'),
     path('new_team/', create_new_team, name='new_team'),
-    path('<uuid:team_id>/edit_team/', edit_team, name='edit_team')
+    path('teams/<uuid:team_id>/edit_team/', edit_team, name='edit_team'),
+    path('teams/<uuid:team_id>/add_player/<int:is_pitcher>/', add_player, name='add_player'),
+    path('schedule/new_game/', new_game, name='new_game')
 ]

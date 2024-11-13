@@ -3,7 +3,7 @@ from statalize_app.models import *
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse
-from .models import team, player, pitcher, Game, GamePlayerStats, GamePitcherStats
+from .models import *
 from statalize_app.forms import *
 from .util import calculate_slg, calculate_ops, calculate_avg, calculate_obp, calculate_ERA, calculate_WHIP
 from django.db.models import Sum, Count
@@ -67,13 +67,48 @@ def create_new_team(request):
 
 
 def edit_team(request, team_id):
-    set_team = team.objects.get(id=team_id)
-    form = EditTeam(team_id=team_id, data=request.POST)
+    set_team = get_object_or_404(team, id=team_id)
+
+    form = EditTeam(team_id=set_team.id, data=request.POST)
+
+    team_players = form.fields['players'].queryset
+    team_pitchers = form.fields['pitchers'].queryset
 
     if form.is_valid():
-        selected_players = form.cleaned_data['players']
+        selected_players = form.cleaned_data["players"]
+        selected_pitchers = form.cleaned_data["pitchers"]
+        # TODO: delete based on selected
 
-    return render(request, 'edit_team.html', {'form': form, 'team': set_team})
+    return render(request, 'edit_team.html', {'form': form, 'team': set_team, 'players': team_players, 'pitchers': team_pitchers})
+
+
+def add_player(request, team_id, is_pitcher):
+    if is_pitcher == 1:
+        form = NewPitcher(request.POST)
+    else:
+        form = NewPlayer(request.POST)
+    set_team = get_object_or_404(team, id=team_id)
+    print(set_team)
+
+    if form.is_valid():
+        name = form.cleaned_data["player_name"]
+        age = form.cleaned_data["player_age"]
+        year = form.cleaned_data["player_year"]
+        position = form.cleaned_data["player_position"]
+        height = form.cleaned_data["player_height"]
+        weight = form.cleaned_data["player_weight"]
+
+        if is_pitcher == 1:
+            new_pitcher = pitcher(pitches_for=set_team, pitcher_name=name, pitcher_age=age, pitcher_year=year, pitcher_position=position, pitcher_height=height, pitcher_weight=weight)
+            new_pitcher.save()
+            return redirect('teams', id=new_pitcher.pitches_for.id)
+        else:
+            new_player = player(plays_for=set_team, player_name=name, player_age=age, player_year=year, player_position=position, player_height=height, player_weight=weight)
+            new_player.save()
+            return redirect('teams', id=new_player.plays_for.id)
+
+    return render(request, 'new_player.html', {'form': form})
+
 
 def logout_page(request):
     logout(request)
@@ -81,7 +116,8 @@ def logout_page(request):
 
 def display_home(request):
     data = team.objects.all()
-    context = {"Teams": data}
+    game_data = Game.objects.all()
+    context = {"Teams": data, "games": game_data}
     return render(request, 'statalize/home.html', context)
 
 def display_standings(request):
@@ -230,6 +266,22 @@ def display_team(request, id):
 
     context = {"Team": set_team, "Players": teams_players, 'player_stats': player_stats, 'pitcher_stats': pitcher_stats}
     return render(request, 'statalize/teams.html', context)
+
+
+def new_game(request):
+    form = NewGame(request.POST)
+    if form.is_valid():
+        date = form.cleaned_data["date"]
+        home_team = form.cleaned_data["home_team"]
+        away_team = form.cleaned_data["away_team"]
+
+        set_game = Game(date=date, home_team=home_team, away_team=away_team)
+        set_game.save()
+
+        return redirect('home')
+
+    return render(request, 'new_game.html', {'form': form})
+
 
 def display_game(request, game_id):
     game = get_object_or_404(Game, id=game_id)
