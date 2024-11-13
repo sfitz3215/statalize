@@ -126,7 +126,9 @@ def display_standings(request):
     return render(request, 'statalize/standings.html', context)
 
 def display_schedule(request):
-    return render(request, 'statalize/schedule.html')
+    data = Game.objects.all()
+    context = {"games": data}
+    return render(request, 'statalize/schedule.html', context)
 
 def display_players(request):
     players = player.objects.all()

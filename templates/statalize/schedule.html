@@ -6,14 +6,26 @@
       </h2>
     <table class = "sortable table">
       <thead>
-          <tr>
-              <td></td>
-          </tr>
+        <tr>
+            <td>Date and Time</td>
+            <td>Home</td>
+            <td>Away</td>
+        </tr>
       </thead>
-          <tr>
-              <td></td>
-          </tr>
+         {% for game in games %}
+        <tr>
+            <td>{{ game.date }}</td>
+            <td>{{ game.home_team }}</td>
+            <td>{{ game.away_team }}</td>
+            {% if user == game.home_team.coach or user.username == 'admin' %}
+                <td><a href="{% url 'logout' %}">Adjust</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
     </table>
+    {% if user.username == 'admin' %}
+        <a href="{% url 'new_game' %}">new game</a>
+        {% endif %}
   <div class ="container pb-3"></div>
 </div>
 {% endblock %}
