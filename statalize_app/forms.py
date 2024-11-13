@@ -32,16 +32,50 @@ class EditTeam(forms.Form):
             required=False
         )
 
-class GameForm(forms.ModelForm):
-    class Meta:
-        model = Game
-        fields = ('date', 'away_team', 'home_team', 'away_score', 'home_score', 'winner')
+class GameForm(forms.Form):
+    away_score = forms.IntegerField(min_value=0, max_value=99)
+    home_score = forms.IntegerField(min_value=0, max_value=99)
+
+    def __init__(self, game_id, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        set_game = Game.objects.get(id=game_id)
+
+        self.fields['home_score'].initial = set_game.home_score
+        self.fields['away_score'].initial = set_game.away_score
 
 
-class AwayTeamPlayerForm(forms.ModelForm):
-    class Meta:
-        model = GamePlayerStats
-        fields = ['player', 'AB', 'BB', 'SO', 'Singles', 'Doubles', 'Triples', 'HR', 'Runs', 'RBI', 'SB', 'SAC']
+class AwayTeamPlayerForm(forms.Form):
+    AB = forms.IntegerField(min_value=0, max_value=0)
+    BB = forms.IntegerField(min_value=0, max_value=0)
+    SO = forms.IntegerField(min_value=0, max_value=0)
+    Singles = forms.IntegerField(min_value=0, max_value=0)
+    Doubles = forms.IntegerField(min_value=0, max_value=0)
+    Triples = forms.IntegerField(min_value=0, max_value=0)
+    HR = forms.IntegerField(min_value=0, max_value=0)
+    Runs = forms.IntegerField(min_value=0, max_value=0)
+    RBI = forms.IntegerField(min_value=0, max_value=0)
+    SB = forms.IntegerField(min_value=0, max_value=0)
+    SAC = forms.IntegerField(min_value=0, max_value=0)
+    def __init__(self, game, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+        set_player = player.objects.get(team=game.away_team)
+
+        self.fields['AB'].initial = set_player.AB
+        self.fields['BB'].initial = set_player.BB
+        self.fields['SO'].initial = set_player.SO
+        self.fields['Singles'].initial = set_player.Singles
+        self.fields['Doubles'].initial = set_player.Doubles
+        self.fields['Triples'].initial = set_player.Triples
+        self.fields['HR'].initial = set_player.HR
+        self.fields['Runs'].initial = set_player.Runs
+        self.fields['RBI'].initial = set_player.RBI
+        self.fields['SB'].initial = set_player.SB
+        self.fields['SAC'].initial = set_player.SAC
+
+
+
 
     def __init__(self, *args, **kwargs):
         game = kwargs.pop('game', None)

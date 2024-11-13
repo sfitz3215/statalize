@@ -8,9 +8,4 @@
         <button type="submit">Add Player Stats</button>
     </form>
 
-    <br>
-    <a href="{% url 'add_away_team_players' game.id %}">Proceed to Away Team Players</a>
-    <a href="{% url 'add_away_team_pitchers' game.id %}">Proceed to Away Team Pitchers</a>
-    <a href="{% url 'add_home_team_pitchers' game.id %}">Proceed to Home Team Pitchers</a>
-    <a href="{% url 'game' game.id %}">Back to Game</a>
 {% endblock %}
