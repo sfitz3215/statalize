@@ -8,7 +8,7 @@ FRESHMAN = "FR"
 SOPHOMORE = "SO"
 JUNIOR = "JR"
 SENIOR = "SR"
-GRADUATE = "GR"
+UNSPECIFIED = "N/A"
 NoPosition = "N/A"
 Firstbase = "1B"
 Secondbase = "2B"
@@ -24,7 +24,7 @@ YEAR_IN_SCHOOL_CHOICES = {
     SOPHOMORE: "Sophomore",
     JUNIOR: "Junior",
     SENIOR: "Senior",
-    GRADUATE: "Graduate",
+    UNSPECIFIED: "Unspecified"
 }
 
 Position_Choices = {
@@ -55,14 +55,15 @@ class team (models.Model):
     def __str__(self):
         return self.team_name
 
+
 class player (models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     plays_for = models.ForeignKey(team, on_delete=models.CASCADE)
     player_name = models.CharField(max_length=50)
     player_age = models.PositiveIntegerField()
-    player_year = models.CharField(max_length=2, choices=YEAR_IN_SCHOOL_CHOICES)
+    player_year = models.CharField(max_length=3, choices=YEAR_IN_SCHOOL_CHOICES)
     player_position = models.CharField(max_length=10, choices=Position_Choices, default=NoPosition)
-    player_height = models.CharField(max_length= 4)
+    player_height = models.CharField(max_length= 5)
     player_weight = models.CharField(max_length= 3)
     player_games = models.PositiveIntegerField(default=0)
     player_hits = models.PositiveIntegerField(default=0)
@@ -86,7 +87,7 @@ class pitcher (models.Model):
         pitches_for = models.ForeignKey(team, on_delete=models.CASCADE)
         pitcher_name = models.CharField(max_length=50)
         pitcher_age = models.PositiveIntegerField()
-        pitcher_year = models.CharField(max_length=2, choices=YEAR_IN_SCHOOL_CHOICES)
+        pitcher_year = models.CharField(max_length=3, choices=YEAR_IN_SCHOOL_CHOICES)
         pitcher_position = models.CharField(max_length=10, choices=Pitcher_Choices, default=NoPitcher)
         pitcher_height = models.CharField(max_length=4)
         pitcher_weight = models.CharField(max_length=3)
@@ -117,6 +118,7 @@ class Game(models.Model):
     players = models.ManyToManyField(player, through='GamePlayerStats')
     pitchers = models.ManyToManyField(pitcher, through='GamePitcherStats')
 
+
 class GamePlayerStats(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
     player = models.ForeignKey(player, on_delete=models.CASCADE)
@@ -132,6 +134,7 @@ class GamePlayerStats(models.Model):
     RBI = models.PositiveIntegerField(default=0)
     SB = models.PositiveIntegerField(default=0)
     SAC = models.PositiveIntegerField(default=0)
+
 
 class GamePitcherStats(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)

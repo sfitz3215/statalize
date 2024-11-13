@@ -67,13 +67,48 @@ def create_new_team(request):
 
 
 def edit_team(request, team_id):
-    set_team = team.objects.get(id=team_id)
-    form = EditTeam(team_id=team_id, data=request.POST)
+    set_team = get_object_or_404(team, id=team_id)
+
+    form = EditTeam(team_id=set_team.id, data=request.POST)
+
+    team_players = form.fields['players'].queryset
+    team_pitchers = form.fields['pitchers'].queryset
 
     if form.is_valid():
-        selected_players = form.cleaned_data['players']
+        selected_players = form.cleaned_data["players"]
+        selected_pitchers = form.cleaned_data["pitchers"]
+        print(f"Selected players: {selected_players}")
+        print(f"Selected players: {selected_pitchers}")
 
-    return render(request, 'edit_team.html', {'form': form, 'team': set_team})
+    return render(request, 'edit_team.html', {'form': form, 'team': set_team, 'players': team_players, 'pitchers': team_pitchers})
+
+
+def add_player(request, team_id, is_pitcher):
+    if is_pitcher == 1:
+        form = NewPitcher(request.POST)
+    else:
+        form = NewPlayer(request.POST)
+    set_team = team.objects.filter(id=team_id)
+
+    if form.is_valid():
+        name = form.cleaned_data["player_name"]
+        age = form.cleaned_data["player_age"]
+        year = form.cleaned_data["player_year"]
+        position = form.cleaned_data["player_position"]
+        height = form.cleaned_data["player_height"]
+        weight = form.cleaned_data["player_weight"]
+
+        if is_pitcher == 1:
+            new_pitcher = pitcher(pitches_for=set_team, pitcher_name=name, pitcher_age=age, pitcher_year=year, pitcher_position=position, pitcher_height=height, pitcher_weight=weight)
+            new_pitcher.save()
+            return redirect('teams', id=new_pitcher.pitches_for.id)
+        else:
+            new_player = player(plays_for=set_team, player_name=name, player_age=age, player_year=year, player_position=position, player_height=height, player_weight=weight)
+            new_player.save()
+            return redirect('teams', id=new_player.plays_for.id)
+
+    return render(request, 'new_player.html', {'form': form})
+
 
 def logout_page(request):
     logout(request)

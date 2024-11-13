@@ -23,13 +23,13 @@
                         <a class="nav-item nav-link" href="{% url 'players' %}"><h2>Players</h2></a>
                         <a class="nav-item nav-link" href=""><h2>Schedule</h2></a>
                         {% if user.username == 'admin' %}
-                          <a class="nav-item nav-link" href="{% url 'logout' %}">Adjust</a>
+                            <a class="nav-item nav-link" href="{% url 'logout' %}"><h2>Adjust</h2></a>
                         {% endif %}
                         <span class = "container rounded-3">
                             {% if user.is_authenticated %}
                                 <a class="nav-item nav-link " href="{% url 'logout' %}"><h2>Logout</h2></a>
                             {% else %}
-                                <a  class="nav-item nav-link" href="{% url 'login' %}"><h2>Login</h2></a>
+                                <a class="nav-item nav-link" href="{% url 'login' %}"><h2>Login</h2></a>
                             {% endif %}
                         </span>
                     </div>
