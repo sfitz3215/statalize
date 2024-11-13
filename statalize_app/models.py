@@ -113,7 +113,7 @@ class Game(models.Model):
     away_team = models.ForeignKey(team, related_name="away_games", on_delete=models.CASCADE)
     home_score = models.PositiveIntegerField(default=0)
     away_score = models.PositiveIntegerField(default=0)
-    winner = models.ForeignKey(team, on_delete=models.CASCADE)
+    winner = models.ForeignKey(team, on_delete=models.CASCADE, null=True)
 
 class GamePlayerStats(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
