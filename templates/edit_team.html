@@ -9,13 +9,44 @@
         </section>
 
         <div class="container">
-            <h2>Edit Team</h2>
+            <h1>Edit Team: {{ team }}</h1>
+            <h3>Pitchers</h3>
 
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit">Edit Team</button>
-            </form>
+            <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                {% for pitcher in pitchers %}
+                    <div class="player-option">
+                        <label>
+                            <input type="checkbox" name="pitchers" value="{{ pitcher.id }}">
+                            {{ pitcher }} - {{ pitcher.pitcher_year }} - {{ pitcher.pitcher_position }}
+                        </label>
+
+                        <!-- <button type="button">Edit Pitcher</button> -->
+                    </div>
+                {% endfor %}
+            </div>
+                <a href="{% url 'add_player' team_id=team.id is_pitcher=1 %}"><button type="button">Add Player</button></a>
+                <div class="container">
+                    <h3>Other Players</h3>
+                </div>
+
+            <div>
+                {% for player in players %}
+                    <div class="player-option">
+                        <label>
+                            <input type="checkbox" name="players" value="{{ player.id }}">
+                            {{ player }} - {{ player.player_year }} - {{ player.player_position }}
+                        </label>
+
+                        <!-- <button type="button">Edit Player</button> -->
+                    </div>
+                {% endfor %}
+            </div>
+                <a href="{% url 'add_player' team_id=team.id is_pitcher=0 %}"><button type="button">Add Player</button></a>
+
+    <button type="submit">Delete Player(s)</button>
+</form>
         </div>
     </div>
 
