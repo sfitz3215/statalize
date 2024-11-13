@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block body %}
-<div class = "container mt-3 bg-light rounded-3">
+<div class = "container border mt-3 rounded-3">
   <h2>
       Teams
   </h2>
@@ -61,7 +61,7 @@
 </table>
     <div class ="container pb-3"></div>
 </div>
-<div class = "container mt-3 bg-light rounded-3">
+<div class = "container border mt-3 rounded-3">
 <h2>Pitchers</h2>
 <table class = "sortable table">
 <tr>
@@ -107,7 +107,9 @@
     </tr>
   {% endfor %}
 </table>
-<a href="{% url 'edit_team' team_id=Team.id %}">edit</a>
+    {% if user == game.home_team.coach or user.username == 'admin' %}
+    <a href="{% url 'edit_team' team_id=Team.id %}">edit</a>
+    {% endif %}
 
     <div class ="container pb-3"></div>
 </div>

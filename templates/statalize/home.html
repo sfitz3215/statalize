@@ -1,45 +1,62 @@
 
 {% extends 'base.html' %}
 {% block body %}
-<div class = "container mt-5 pt-3 bg-light rounded-3">
-      <h2>
-          Current Team Standings:
-      </h2>
-    <table class = "sortable table">
-    <thead>
-        <tr>
-            <td>Team Name</td>
-            <td>Wins</td>
-            <td>Losses</td>
-        </tr>
-    </thead>
-          {% for team in Teams%}
-        <tr>
-            <td><a href="{% url 'teams' id=team.id %}">{{team.team_name}}</a></td>
-            <td>{{team.wins}}</td>
-            <td>{{team.losses}}</td>
-        </tr>
-      {% endfor %}
-</table>
-<div class ="container pb-3">
-</div>
+<div class = "container border mt-5 pt-3 rounded-3">
+    <h1 class = "text-center">
+        Welcome to Statalize
+    </h1>
+    <div class ="container pb-3"></div>
 </div>
 
-    <div class = "container mt-5 pt-3 bg-light rounded-3">
-      <h2>
-          Upcoming Games:
-      </h2>
-    <table class = "sortable table">
-    <thead>
-        <tr>
-            <td></td>
-        </tr>
-    </thead>
-        <tr>
-            <td></td>
-        </tr>
-</table>
-<div class ="container pb-3">
-</div>
+<div class="row">
+    <div class="col-lg-4">
+        <div class = "container border mt-5 pt-3 rounded-3">
+            <h2 class = "text-center">
+                Team Standings
+            </h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                anim id est laborum.
+            </p>
+            <div class ="container pb-3"></div>
+        </div>
     </div>
+    <div class="col-lg-4">
+        <div class = "container border mt-5 pt-3 rounded-3">
+            <h2 class = "text-center">
+                Player Stats
+            </h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                anim id est laborum.
+            </p>
+            <div class ="container pb-3"></div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class = "container border mt-5 pt-3 rounded-3">
+            <h2 class = "text-center">
+                Game Schedules
+            </h2>
+            <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+                incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
+                dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+                anim id est laborum.
+            </p>
+            <div class ="container pb-3"></div>
+        </div>
+    </div>
+</div>
+
 {% endblock %}
