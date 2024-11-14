@@ -320,7 +320,7 @@ def game_edit(request, game_id):
         away_team_player.append(game_player)
 
     for person in away_teamp:
-        game_player = get_object_or_404(GamePitcherStats, player=person)
+        game_player = get_object_or_404(GamePitcherStats, pitcher=person)
         away_team_pitcher.append(game_player)
 
     for person in home_team:
@@ -328,7 +328,7 @@ def game_edit(request, game_id):
         home_team_player.append(game_player)
 
     for person in home_teamp:
-        game_player = get_object_or_404(GamePitcherStats, player=person)
+        game_player = get_object_or_404(GamePitcherStats, pitcher=person)
         home_team_pitcher.append(game_player)
 
     if form.is_valid():
@@ -343,7 +343,7 @@ def game_edit(request, game_id):
         set_game(home_score=home_score, away_score=away_score, winner=winner)
         set_game.save()
         return redirect('add_away_team', game_id=set_game.id)  # Redirect to add player stats after creation
-    return render(request, 'game.html', {'form': form, 'home_team_pitcher': home_team_pitcher, 'home_team_player': home_team_player, 'away_team_pitcher': away_team_pitcher, 'away_team_player': away_team_player})
+    return render(request, 'game.html', {'form': form, 'home_team_pitcher': home_team_pitcher, 'home_team_player': home_team_player, 'away_team_pitcher': away_team_pitcher, 'away_team_player': away_team_player, 'set_game': set_game})
 
 def add_away_team(request, game_id, is_pitcher):
     set_game = get_object_or_404(Game, id=game_id)

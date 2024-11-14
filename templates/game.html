@@ -8,27 +8,87 @@
         <button type="submit">Save Game</button>
     </form>
 </div>
+
+<div class="col-lg-4">
+        <div class = "container border mt-5 pt-3 rounded-3">
+            <h2 class = "text-center">
+                {{ set_game.away_team }}
+            </h2>
+
+            <table class = "sortable table">
+                <tr>
+                    <td>Player Name</td>
+                    <td>G</td>
+                    <td>Hits</td>
+                    <td>AB</td>
+                    <td>BB</td>
+                    <td>SO</td>
+                    <td>1B</td>
+                    <td>2B</td>
+                    <td>3B</td>
+                    <td>HR</td>
+                    <td>Runs</td>
+                    <td>RBI</td>
+                    <td>SB</td>
+                    <td>SAC</td>
+                </tr>
+                      {% for person in away_team_player %}
+                    <tr>
+                        <td>{{person.player}}</td>
+                        <td>{{person.games}}</td>
+                        <td>{{person.hits}}</td>
+                        <td>{{person.AB}}</td>
+                        <td>{{person.BB}}</td>
+                        <td>{{person.SO}}</td>
+                        <td>{{person.Singles}}</td>
+                        <td>{{person.Doubles}}</td>
+                        <td>{{person.Triples}}</td>
+                        <td>{{person.HR}}</td>
+                        <td>{{person.Runs}}</td>
+                        <td>{{person.RBI}}</td>
+                        <td>{{person.SB}}</td>
+                        <td>{{person.SAC}}</td>
+                    </tr>
+                  {% endfor %}
+</table>
+
+
+            <div>
+                {% for person in away_team_pitcher %}
+                    {{ person.pitcher }}
+                {% endfor %}
+            </div>
+
+            <div>
+                {% for person in away_team_player %}
+                    {{ person.player }}
+                {% endfor %}
+            </div>
+            <div class ="container pb-3"></div>
+        </div>
+    </div>
+
 <div>
     {% for person in home_team_pitcher %}
-        {{ person }}
+        {{ person.pitcher }}
     {% endfor %}
 </div>
 
 <div>
     {% for person in home_team_player %}
-        {{ person }}
+        {{ person.player }}
     {% endfor %}
 </div>
 
 <div>
     {% for person in away_team_pitcher %}
-        {{ person }}
+        {{ person.pitcher }}
     {% endfor %}
 </div>
 
 <div>
     {% for person in away_team_player %}
-        {{ person }}
+        {{ person.player }}
     {% endfor %}
 </div>
 {% endblock %}
