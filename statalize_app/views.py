@@ -303,14 +303,34 @@ def new_game(request):
 
     return render(request, 'new_game.html', {'form': form})
 
-
-def display_game(request, game_id):
-    game = get_object_or_404(Game, id=game_id)
-    
-    
 def game_edit(request, game_id):
     set_game = get_object_or_404(Game, id=game_id)
     form = GameForm(data=request.POST or None, game_id=game_id)
+    away_team = player.objects.filter(plays_for=set_game.away_team)
+    away_teamp = pitcher.objects.filter(pitches_for=set_game.away_team)
+    home_team = player.objects.filter(plays_for=set_game.home_team)
+    home_teamp = pitcher.objects.filter(pitches_for=set_game.home_team)
+    away_team_player = []
+    away_team_pitcher = []
+    home_team_player = []
+    home_team_pitcher = []
+
+    for person in away_team:
+        game_player = get_object_or_404(GamePlayerStats, player=person)
+        away_team_player.append(game_player)
+
+    for person in away_teamp:
+        game_player = get_object_or_404(GamePitcherStats, player=person)
+        away_team_pitcher.append(game_player)
+
+    for person in home_team:
+        game_player = get_object_or_404(GamePlayerStats, player=person)
+        home_team_player.append(game_player)
+
+    for person in home_teamp:
+        game_player = get_object_or_404(GamePitcherStats, player=person)
+        home_team_pitcher.append(game_player)
+
     if form.is_valid():
         home_score=form.cleaned_data['home_score']
         away_score=form.cleaned_data['away_score']
@@ -323,7 +343,7 @@ def game_edit(request, game_id):
         set_game(home_score=home_score, away_score=away_score, winner=winner)
         set_game.save()
         return redirect('add_away_team', game_id=set_game.id)  # Redirect to add player stats after creation
-    return render(request, 'game.html', {'form': form,})
+    return render(request, 'game.html', {'form': form, 'home_team_pitcher': home_team_pitcher, 'home_team_player': home_team_player, 'away_team_pitcher': away_team_pitcher, 'away_team_player': away_team_player})
 
 def add_away_team(request, game_id, is_pitcher):
     set_game = get_object_or_404(Game, id=game_id)

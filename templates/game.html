@@ -8,5 +8,27 @@
         <button type="submit">Save Game</button>
     </form>
 </div>
+<div>
+    {% for person in home_team_pitcher %}
+        {{ person }}
+    {% endfor %}
+</div>
 
+<div>
+    {% for person in home_team_player %}
+        {{ person }}
+    {% endfor %}
+</div>
+
+<div>
+    {% for person in away_team_pitcher %}
+        {{ person }}
+    {% endfor %}
+</div>
+
+<div>
+    {% for person in away_team_player %}
+        {{ person }}
+    {% endfor %}
+</div>
 {% endblock %}
