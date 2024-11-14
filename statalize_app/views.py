@@ -304,8 +304,8 @@ def game_edit(request, game_id):
 
         set_game(home_score=home_score, away_score=away_score, winner=winner)
         set_game.save()
-        return redirect('add_away_team_players', game_id=set_game.id)  # Redirect to add player stats after creation
-    return render(request, 'game.html', {'form': form})
+        return redirect('add_away_team', game_id=set_game.id)  # Redirect to add player stats after creation
+    return render(request, 'game.html', {'form': form,})
 
 def add_away_team(request, game_id, is_pitcher):
     set_game = get_object_or_404(Game, id=game_id)
