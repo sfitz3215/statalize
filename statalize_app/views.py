@@ -281,6 +281,24 @@ def new_game(request):
         set_game = Game(date=date, home_team=home_team, away_team=away_team)
         set_game.save()
 
+        away_team_players = player.objects.filter(plays_for=away_team)
+        away_team_pitchers = pitcher.objects.filter(pitches_for=away_team)
+        home_team_players = player.objects.filter(plays_for=home_team)
+        home_team_pitchers = pitcher.objects.filter(pitches_for=home_team)
+
+        for away_player in away_team_players:
+            away = GamePlayerStats(game=set_game, player=away_player)
+            away.save()
+
+        for home_player in home_team_players:
+            home = GamePlayerStats(game=set_game, player=home_player)
+            home.save()
+        for away_pitcher in away_team_pitchers:
+            awayp = GamePitcherStats(game=set_game, pitcher=away_pitcher)
+            awayp.save()
+        for home_pitcher in home_team_pitchers:
+            homep = GamePitcherStats(game=set_game, pitcher=home_pitcher)
+            homep.save()
         return redirect('home')
 
     return render(request, 'new_game.html', {'form': form})
