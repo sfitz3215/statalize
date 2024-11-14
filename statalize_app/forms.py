@@ -35,11 +35,9 @@ class EditTeam(forms.Form):
     def __init__(self, team_id, *args, **kwargs):
         super().__init__(*args, **kwargs)
         set_team = team.objects.get(id=team_id)
-        print(set_team)
-        print(set_team.coach)
+
         self.fields['players'].queryset = player.objects.filter(plays_for=set_team)
-        for Player in self.fields['players'].queryset:
-            print(Player.player_name)
+
         self.fields['pitchers'].queryset = pitcher.objects.filter(pitches_for=set_team)
 
 

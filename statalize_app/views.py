@@ -107,7 +107,7 @@ def add_player(request, team_id, is_pitcher):
             new_player.save()
             return redirect('teams', id=new_player.plays_for.id)
 
-    return render(request, 'new_player.html', {'form': form})
+    return render(request, 'new_player.html', {'form': form, 'is_pitcher': is_pitcher})
 
 
 def logout_page(request):

@@ -9,12 +9,20 @@
         </section>
 
         <div class="container">
+            {% if is_pitcher == 1 %}
+            <h2>New Pitcher</h2>
+            {% else %}
             <h2>New Player</h2>
+            {% endif %}
 
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
                 {{ form.as_p }}
+                {% if is_pitcher == 1 %}
+                <button type="submit">Add Pitcher</button>
+                {% else %}
                 <button type="submit">Add Player</button>
+                {% endif %}
             </form>
         </div>
     </div>

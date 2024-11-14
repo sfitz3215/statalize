@@ -13,13 +13,18 @@
             <td>Losses</td>
         </tr>
     </thead>
-          {% for team in Teams%}
+        {% for team in Teams%}
         <tr>
             <td><a href="{% url 'teams' id=team.id %}">{{team.team_name}}</a></td>
             <td>{{team.wins}}</td>
             <td>{{team.losses}}</td>
         </tr>
-      {% endfor %}
+        {% endfor %}
+        {% if user.username == 'admin' %}
+            <tr>
+                <td><a href="{% url 'new_team' %}"><button type="button">edit</button></a></td>
+            </tr>
+        {% endif %}
 </table>
 <div class ="container pb-3">
 </div>
@@ -47,10 +52,13 @@
             {% endif %}
         </tr>
         {% endfor %}
-</table>
         {% if user.username == 'admin' %}
-        <a href="{% url 'new_game' %}">new game</a>
+        <tr>
+            <td><a href="{% url 'new_game' %}"><button type="button">new game</button></a></td>
+        </tr>
         {% endif %}
+</table>
+
 <div class ="container pb-3">
 </div>
     </div>
