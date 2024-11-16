@@ -1,5 +1,6 @@
 
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block body %}
     <div id="page-container">
         <section>
@@ -13,7 +14,7 @@
 
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {% crispy form %}
                 {% if not first %}
                     <p>Incorrect Username or Password</p>
                 {% endif%}
