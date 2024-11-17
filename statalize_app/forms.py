@@ -1,13 +1,30 @@
 from django import forms
 from .models import *
+from django.urls import reverse_lazy
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Submit
 
 
 class AuthenticationForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_action = reverse_lazy('home')
+        self.helper.form_method = 'POST'
+        self.helper.add_input(Submit('submit', 'Login'))
+
     username = forms.CharField(max_length=25)
     password = forms.CharField(max_length=25, widget=forms.PasswordInput)
 
 
 class NewCoachForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_action = reverse_lazy('login')
+        self.helper.form_method = 'POST'
+        self.helper.add_input(Submit('submit', 'Create Account'))
+
     username = forms.CharField(max_length=25)
     password = forms.CharField(max_length=25, widget=forms.PasswordInput)
     password_check = forms.CharField(max_length=25, widget=forms.PasswordInput)
@@ -44,19 +61,75 @@ class EditTeam(forms.Form):
 
 
 class NewPlayer(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_action = reverse_lazy('home')
+        self.helper.form_method = 'POST'
+        self.helper.add_input(Submit('submit', 'Add Player'))
+
+    YEAR_CHOICES = (
+        ('FR', 'Freshman'),
+        ('SO', 'Sophomore'),
+        ('JR', 'Junior'),
+        ('SR', 'Senior')
+    )
+
+    POSITION_CHOICES = (
+        ('1B', 'Firstbase'),
+        ('2B', 'Secondbase'),
+        ('3B', 'Thirdbase'),
+        ('SS', 'Shortstop'),
+        ('C', 'Catcher'),
+        ('OF', 'Outfield'),
+        ('N/A', 'NoPosition')
+    )
+
     player_name = forms.CharField(max_length=50)
     player_age = forms.IntegerField(min_value=1)
-    player_year = forms.ChoiceField(choices=[('FR', 'Freshman'), ('SO', 'Sophomore'), ('JR', 'Junior'), ('SR', 'Senior')], widget=forms.Select)
-    player_position = forms.ChoiceField(choices=[('1B', 'Firstbase'), ('2B', 'Secondbase'),('3B', 'Thirdbase'),('SS', 'Shortstop'), ('C', 'Catcher'), ('OF', 'Outfield'), ('N/A', 'NoPosition')])
-    player_height = forms.CharField(max_length=4, help_text='Feet\'Inches\" e.g. 5\'11\"',)
+    player_year = forms.ChoiceField(
+        choices=YEAR_CHOICES,
+        #[('FR', 'Freshman'), ('SO', 'Sophomore'), ('JR', 'Junior'), ('SR', 'Senior')],
+        widget=forms.RadioSelect())
+    player_position = forms.ChoiceField(
+        choices=POSITION_CHOICES,
+        #[('1B', 'Firstbase'), ('2B', 'Secondbase'),('3B', 'Thirdbase'),('SS', 'Shortstop'), ('C', 'Catcher'), ('OF', 'Outfield'), ('N/A', 'NoPosition')])
+        widget = forms.RadioSelect())
+    player_height = forms.CharField(max_length=5, help_text='Feet\'Inches\" e.g. 5\'11\"',)
     player_weight = forms.CharField(max_length=3, help_text='Only the number (in pounds) e.g. 125')
 
 
 class NewPitcher(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_action = reverse_lazy('home')
+        self.helper.form_method = 'POST'
+        self.helper.add_input(Submit('submit', 'Add Player'))
+
+    YEAR_CHOICES = (
+        ('FR', 'Freshman'),
+        ('SO', 'Sophomore'),
+        ('JR', 'Junior'),
+        ('SR', 'Senior')
+    )
+
+    POSITION_CHOICES = (
+        ('SP', 'Starter'),
+        ('RP', 'Relief'),
+        ('N/A', 'NoPitcher')
+    )
+
     player_name = forms.CharField(max_length=50)
     player_age = forms.IntegerField(min_value=1)
-    player_year = forms.ChoiceField(choices=[('FR', 'Freshman'), ('SO', 'Sophomore'), ('JR', 'Junior'), ('SR', 'Senior')], widget=forms.Select)
-    player_position = forms.ChoiceField(choices=[('SP', 'Starter'), ('RP', 'Relief'), ('N/A', 'NoPitcher')])
+    player_year = forms.ChoiceField(
+        choices= YEAR_CHOICES,
+        #[('FR', 'Freshman'), ('SO', 'Sophomore'), ('JR', 'Junior'), ('SR', 'Senior')],
+        widget= forms.RadioSelect())
+    player_position = forms.ChoiceField(
+        choices= POSITION_CHOICES,
+        #[('SP', 'Starter'), ('RP', 'Relief'), ('N/A', 'NoPitcher')]
+        widget= forms.RadioSelect())
     player_height = forms.CharField(max_length=4, help_text='Feet\'Inches\" e.g. 5\'11\"',)
     player_weight = forms.CharField(max_length=3, help_text='Only the number (in pounds) e.g. 125')
 

@@ -1,19 +1,20 @@
 {% extends 'base.html' %}
 {% block body %}
-<div>
+<div class="container bg-dark border border-success mt-5 pt-3 rounded-3">
     <h2>Create/Edit</h2>
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Save Game</button>
     </form>
+    <div class ="container pb-3"></div>
 </div>
 
 <div class="row">
     <div class="col-lg-6">
-        <div class = "container border mt-3 mb-3 mr-2 ml-2 pt-3 rounded-3">
+        <div class = "container bg-dark border border-success mt-3 mb-3 mr-2 ml-2 pt-3 rounded-3">
             <h1 class = "text-center">
-                {{ set_game.away_team }}
+               {{ set_game.away_team }}
             </h1>
             <h4 class="text-center"><i>Away</i></h4>
 
@@ -89,7 +90,7 @@
     </div>
 
     <div class="col-lg-6">
-        <div class = "container border mt-3 mb-3 mr-2 ml-2 pt-3 rounded-3">
+        <div class = "container bg-dark border border-success mt-3 mb-3 mr-2 ml-2 pt-3 rounded-3">
             <h1 class = "text-center">
                 {{ set_game.home_team }}
             </h1>

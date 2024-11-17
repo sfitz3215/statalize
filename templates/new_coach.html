@@ -1,7 +1,8 @@
 
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block body %}
-    <div id="page-container">
+    <div id="page-container" class="container bg-dark border border-success mt-5 pt-3 rounded-3">
         <section>
             <div class="container">
 
@@ -13,15 +14,15 @@
 
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {% crispy form %}
                 {% if not new %}
                     <p>Username taken</p>
                 {% endif%}
                 {% if not match %}
                     <p>Passwords do not match</p>
                 {% endif%}
-                <button type="submit">Create Account</button>
             </form>
+            <div class ="container pb-3"></div>
         </div>
     </div>
 

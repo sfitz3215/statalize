@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block body %}
-    <div id="page-container">
+    <div id="page-container" class="container bg-dark border border-success mt-5 pt-3 rounded-3">
         <section>
             <div class="container">
 
@@ -9,6 +9,7 @@
 
         <div class="container">
             <h1>Edit Team: {{ team }}</h1>
+            <div class ="container pb-3"></div>
             <h3>Pitchers</h3>
 
             <form method="POST" enctype="multipart/form-data">
@@ -26,6 +27,7 @@
                 {% endfor %}
             </div>
                 <a href="{% url 'add_player' team_id=team.id is_pitcher=1 %}"><button type="button">Add Player</button></a>
+                <div class ="container pb-5"></div>
                 <div class="container">
                     <h3>Other Players</h3>
                 </div>
@@ -43,9 +45,9 @@
                 {% endfor %}
             </div>
                 <a href="{% url 'add_player' team_id=team.id is_pitcher=0 %}"><button type="button">Add Player</button></a>
-
-    <button type="submit">Delete Player(s)</button>
-</form>
+            <button type="submit">Delete Player(s)</button>
+            </form>
+            <div class ="container pb-3"></div>
         </div>
     </div>
 
