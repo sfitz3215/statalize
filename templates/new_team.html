@@ -1,5 +1,5 @@
-
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block body %}
     <div id="page-container" class = "container bg-dark border border-success mt-5 pt-3 rounded-3">
         <section>
@@ -13,7 +13,7 @@
 
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {% crispy form %}
                 {% if not new %}
                     <p>Team name taken</p>
                 {% endif%}

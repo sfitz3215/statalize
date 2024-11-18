@@ -33,6 +33,13 @@ class NewCoachForm(forms.Form):
 
 
 class NewTeamForm(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_action = reverse_lazy('login')
+        self.helper.form_method = 'POST'
+        self.helper.add_input(Submit('submit', 'Create Team'))
+
     coach = forms.ModelChoiceField(queryset=User.objects.all())
     team_name = forms.CharField(max_length=20)
 
@@ -136,6 +143,13 @@ class NewPitcher(forms.Form):
 
 
 class NewGame(forms.Form):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_action = reverse_lazy('login')
+        self.helper.form_method = 'POST'
+        self.helper.add_input(Submit('submit', 'Add Game'))
+
     date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
     home_team = forms.ModelChoiceField(queryset=team.objects.all())
     away_team = forms.ModelChoiceField(queryset=team.objects.all())
