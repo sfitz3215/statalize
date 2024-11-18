@@ -316,19 +316,19 @@ def game_edit(request, game_id):
     home_team_pitcher = []
 
     for person in away_team:
-        game_player = get_object_or_404(GamePlayerStats, game_id, player=person)
+        game_player = get_object_or_404(GamePlayerStats, game=game_id, player=person)
         away_team_player.append(game_player)
 
     for person in away_teamp:
-        game_player = get_object_or_404(GamePitcherStats,game_id,  pitcher=person)
+        game_player = get_object_or_404(GamePitcherStats, game=game_id,  pitcher=person)
         away_team_pitcher.append(game_player)
 
     for person in home_team:
-        game_player = get_object_or_404(GamePlayerStats, game_id, player=person)
+        game_player = get_object_or_404(GamePlayerStats, game=game_id, player=person)
         home_team_player.append(game_player)
 
     for person in home_teamp:
-        game_player = get_object_or_404(GamePitcherStats, game_id, pitcher=person)
+        game_player = get_object_or_404(GamePitcherStats, game=game_id, pitcher=person)
         home_team_pitcher.append(game_player)
 
     if form.is_valid():
@@ -347,8 +347,8 @@ def game_edit(request, game_id):
 
 def edit_player_game(request, game_id, player_id):
     set_game = get_object_or_404(Game, id=game_id)
-    set_player = get_object_or_404(GamePlayerStats, id=player_id)
-    form = GamePlayerForm(data=request.POST or None, game_id=game_id)
+    set_player = get_object_or_404(GamePlayerStats, game_id=game_id, player_id=player_id)
+    form = GamePlayerForm(data=request.POST or None, game=game_id, player=player_id)
     if form.is_valid():
         set_player = form.save(commit=False)
         set_player.game = set_game
@@ -359,8 +359,8 @@ def edit_player_game(request, game_id, player_id):
 
 def edit_pitcher_game(request, game_id, pitcher_id):
     set_game = get_object_or_404(Game, id=game_id)
-    set_pitcher = get_object_or_404(GamePitcherStats, id=pitcher_id)
-    form = GamePitcherForm(data=request.POST or None, game_id=game_id)
+    set_pitcher = get_object_or_404(GamePitcherStats, game_id=game_id, pitcher_id=pitcher_id)
+    form = GamePitcherForm(data=request.POST or None, game=game_id, pitcher=pitcher_id)
     if form.is_valid():
         set_pitcher = form.save(commit=False)
         set_pitcher.game = set_game

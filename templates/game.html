@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% block body %}
+
 <div class="container bg-dark border border-success mt-5 pt-3 rounded-3">
     <h2>Edit</h2>
     <form method="post">
@@ -53,7 +54,7 @@
                         <td>{{person.RBI}}</td>
                         <td>{{person.SB}}</td>
                         <td>{{person.SAC}}</td>
-                        <td><a href="{% url 'edit_player_game' game_id=set_game player_id=person.player_id %}">Edit Player</a>
+                        <td><a href="{% url 'edit_player_game' game_id=set_game.id player_id=person.player_id %}">Edit Player</a>
                         </td>
                     </tr>
                   {% endfor %}
@@ -84,7 +85,7 @@
                         <td>{{person.runs}}</td>
                         <td>{{person.ER}}</td>
                         <td>{{person.IP}}</td>
-                        <td><a href="{% url 'edit_pitcher_game' game_id=set_game pitcher_id=person.pitcher_id  %}">Edit Player</a>
+                        <td><a href="{% url 'edit_pitcher_game' game_id=set_game.id pitcher_id=person.pitcher_id  %}">Edit Player</a>
                         </td>
                     </tr>
                   {% endfor %}
@@ -92,7 +93,6 @@
             <div class ="container pb-3"></div>
         </div>
     </div>
-
     <div class="col-lg-6">
         <div class = "container bg-dark border border-success mt-3 mb-3 mr-2 ml-2 pt-3 rounded-3">
             <h1 class = "text-center">
@@ -135,7 +135,7 @@
                         <td>{{person.RBI}}</td>
                         <td>{{person.SB}}</td>
                         <td>{{person.SAC}}</td>
-                        <td><a href="{% url 'edit_player_game' game_id=set_game player_id=person.player_id  %}">Edit Player</a>
+                        <td><a href="{% url 'edit_player_game' game_id=set_game.id player_id=person.player_id  %}">Edit Player</a>
                         </td>
                     </tr>
                   {% endfor %}
@@ -166,7 +166,7 @@
                         <td>{{person.runs}}</td>
                         <td>{{person.ER}}</td>
                         <td>{{person.IP}}</td>
-                        <td><a href="{% url 'edit_pitcher_game' game_id=set_game pitcher_id=person.pitcher_id  %}">Edit Player</a>
+                        <td><a href="{% url 'edit_pitcher_game' game_id=set_game.id pitcher_id=person.pitcher_id  %}">Edit Player</a>
                         </td>
                     </tr>
                   {% endfor %}

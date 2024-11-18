@@ -168,53 +168,53 @@ class GameForm(forms.Form):
 
 
 class GamePlayerForm(forms.Form):
-    AB = forms.IntegerField(min_value=0, max_value=0)
-    BB = forms.IntegerField(min_value=0, max_value=0)
-    SO = forms.IntegerField(min_value=0, max_value=0)
-    Singles = forms.IntegerField(min_value=0, max_value=0)
-    Doubles = forms.IntegerField(min_value=0, max_value=0)
-    Triples = forms.IntegerField(min_value=0, max_value=0)
-    HR = forms.IntegerField(min_value=0, max_value=0)
-    Runs = forms.IntegerField(min_value=0, max_value=0)
-    RBI = forms.IntegerField(min_value=0, max_value=0)
-    SB = forms.IntegerField(min_value=0, max_value=0)
-    SAC = forms.IntegerField(min_value=0, max_value=0)
-    def __init__(self, game, *args, **kwargs):
+    AB = forms.IntegerField(min_value=0, max_value=100)
+    BB = forms.IntegerField(min_value=0, max_value=100)
+    SO = forms.IntegerField(min_value=0, max_value=100)
+    Singles = forms.IntegerField(min_value=0, max_value=100)
+    Doubles = forms.IntegerField(min_value=0, max_value=100)
+    Triples = forms.IntegerField(min_value=0, max_value=100)
+    HR = forms.IntegerField(min_value=0, max_value=100)
+    Runs = forms.IntegerField(min_value=0, max_value=100)
+    RBI = forms.IntegerField(min_value=0, max_value=100)
+    SB = forms.IntegerField(min_value=0, max_value=100)
+    SAC = forms.IntegerField(min_value=0, max_value=100)
+    def __init__(self, game, player, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        stats = GamePlayerStats.objects.get(game = game, player = player)
+        self.fields['AB'].initial = stats.AB
+        self.fields['BB'].initial = stats.BB
+        self.fields['SO'].initial = stats.SO
+        self.fields['Singles'].initial = stats.Singles
+        self.fields['Doubles'].initial = stats.Doubles
+        self.fields['Triples'].initial = stats.Triples
+        self.fields['HR'].initial = stats.HR
+        self.fields['Runs'].initial = stats.Runs
+        self.fields['RBI'].initial = stats.RBI
+        self.fields['SB'].initial = stats.SB
+        self.fields['SAC'].initial = stats.SAC
 
-        self.fields['AB'].initial = self.AB
-        self.fields['BB'].initial = self.BB
-        self.fields['SO'].initial = self.SO
-        self.fields['Singles'].initial = self.Singles
-        self.fields['Doubles'].initial = self.Doubles
-        self.fields['Triples'].initial = self.Triples
-        self.fields['HR'].initial = self.HR
-        self.fields['Runs'].initial = self.Runs
-        self.fields['RBI'].initial = self.RBI
-        self.fields['SB'].initial = self.SB
-        self.fields['SAC'].initial = self.SAC
+class GamePitcherForm(forms.Form):
+        SO = forms.IntegerField(min_value=0, max_value=100)
+        hits = forms.IntegerField(min_value=0, max_value=100)
+        walks = forms.IntegerField(min_value=0, max_value=100)
+        HR = forms.IntegerField(min_value=0, max_value=100)
+        IP = forms.FloatField(min_value=0, max_value=100)
+        runs = forms.IntegerField(min_value=0, max_value=100)
+        ER = forms.IntegerField(min_value=0, max_value=100)
+        games = forms.IntegerField(min_value=0, max_value=100)
+        GS = forms.IntegerField(min_value=0, max_value=100)
+        AB = forms.IntegerField(min_value=0, max_value=100)
 
-class GamePitcherForm(forms.ModelForm):
-        SO = forms.IntegerField(min_value=0, max_value=0)
-        hits = forms.IntegerField(min_value=0, max_value=0)
-        walks = forms.IntegerField(min_value=0, max_value=0)
-        HR = forms.IntegerField(min_value=0, max_value=0)
-        IP = forms.FloatField(min_value=0, max_value=0)
-        runs = forms.IntegerField(min_value=0, max_value=0)
-        ER = forms.IntegerField(min_value=0, max_value=0)
-        games = forms.IntegerField(min_value=0, max_value=0)
-        GS = forms.IntegerField(min_value=0, max_value=0)
-        AB = forms.IntegerField(min_value=0, max_value=0)
-
-        def __init__(self, game, *args, **kwargs):
+        def __init__(self, game, pitcher, *args, **kwargs):
             super().__init__(*args, **kwargs)
-
-            self.fields['SO'].initial = self.SO
-            self.fields['hits'].initial = self.hits
-            self.fields['walks'].initial = self.walks
-            self.fields['HR'].initial = self.HR
-            self.fields['IP'].initial = self.IP
-            self.fields['runs'].initial = self.runs
-            self.fields['ER'].initial = self.ER
-            self.fields['games'].initial = self.games
-            self.fields['AB'].initial = self.AB
+            stats = GamePitcherStats.objects.get(game=game, pitcher=pitcher)
+            self.fields['SO'].initial = stats.SO
+            self.fields['hits'].initial = stats.hits
+            self.fields['walks'].initial = stats.walks
+            self.fields['HR'].initial = stats.HR
+            self.fields['IP'].initial = stats.IP
+            self.fields['runs'].initial = stats.runs
+            self.fields['ER'].initial = stats.ER
+            self.fields['games'].initial = stats.games
+            self.fields['AB'].initial = stats.AB
