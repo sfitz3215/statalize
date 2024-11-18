@@ -155,6 +155,7 @@ class NewGame(forms.Form):
     away_team = forms.ModelChoiceField(queryset=team.objects.all())
 
 class GameForm(forms.Form):
+    date = forms.DateTimeField(widget=forms.DateTimeInput(attrs={'type': 'datetime-local'}))
     away_score = forms.IntegerField(min_value=0, max_value=99)
     home_score = forms.IntegerField(min_value=0, max_value=99)
 
@@ -162,7 +163,7 @@ class GameForm(forms.Form):
         super().__init__(*args, **kwargs)
 
         set_game = Game.objects.get(id=game_id)
-
+        self.fields['date'].initial = set_game.date
         self.fields['home_score'].initial = set_game.home_score
         self.fields['away_score'].initial = set_game.away_score
 
@@ -225,4 +226,5 @@ class GamePitcherForm(forms.Form):
             self.fields['runs'].initial = stats.runs
             self.fields['ER'].initial = stats.ER
             self.fields['games'].initial = stats.games
+            self.fields['GS'].initial = stats.GS
             self.fields['AB'].initial = stats.AB

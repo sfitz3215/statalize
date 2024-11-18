@@ -109,7 +109,7 @@ class pitcher (models.Model):
 
 class Game(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    date = models.DateTimeField()
+    date = models.DateTimeField(null=True)
     home_team = models.ForeignKey(team, related_name="home_games", on_delete=models.CASCADE)
     away_team = models.ForeignKey(team, related_name="away_games", on_delete=models.CASCADE)
     home_score = models.PositiveIntegerField(default=0)
@@ -132,8 +132,6 @@ class GamePlayerStats(models.Model):
     RBI = models.PositiveIntegerField(default=0)
     SB = models.PositiveIntegerField(default=0)
     SAC = models.PositiveIntegerField(default=0)
-    class Meta:
-        unique_together = ('game', 'player')
 
 class GamePitcherStats(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
