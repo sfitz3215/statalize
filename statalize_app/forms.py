@@ -181,6 +181,10 @@ class GamePlayerForm(forms.Form):
     SAC = forms.IntegerField(min_value=0, max_value=100)
     def __init__(self, game, player, *args, **kwargs):
         super().__init__(*args, **kwargs)
+        self.helper = FormHelper(self)
+        self.helper.form_action = reverse_lazy('home')
+        self.helper.form_method = 'POST'
+        self.helper.add_input(Submit('submit', 'Add Player Stats'))
         stats = GamePlayerStats.objects.get(game = game, player = player)
         self.fields['AB'].initial = stats.AB
         self.fields['BB'].initial = stats.BB
@@ -208,6 +212,10 @@ class GamePitcherForm(forms.Form):
 
         def __init__(self, game, pitcher, *args, **kwargs):
             super().__init__(*args, **kwargs)
+            self.helper = FormHelper(self)
+            self.helper.form_action = reverse_lazy('home')
+            self.helper.form_method = 'POST'
+            self.helper.add_input(Submit('submit', 'Login'))
             stats = GamePitcherStats.objects.get(game=game, pitcher=pitcher)
             self.fields['SO'].initial = stats.SO
             self.fields['hits'].initial = stats.hits
