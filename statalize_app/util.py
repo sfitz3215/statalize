@@ -19,13 +19,28 @@ def calculate_ops(OBP, SLG):
     OBP = float(OBP)
     return ("{:10.3f}".format(SLG + OBP))
 
+
+def fix_bad_american_baseball_decimals(IP):
+    IP_frac = IP % 1
+    IP_whole = IP - IP_frac
+    if IP_frac > 0:
+        IP_frac *= 10
+        IP_frac /= 3
+
+    new_IP = IP_whole + IP_frac
+    return new_IP
+
+
 def calculate_WHIP(walks, hits, IP):
     if IP == 0:
         return 0
-    return (walks + hits)/IP
+    new_IP = fix_bad_american_baseball_decimals(IP)
+    return (walks + hits)/new_IP
+
 
 def calculate_ERA(ER, IP):
     if IP == 0:
         return 0
-    return (ER*9)/IP
+    new_IP = fix_bad_american_baseball_decimals(IP)
+    return (ER*9)/new_IP
 

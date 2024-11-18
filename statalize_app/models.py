@@ -47,7 +47,7 @@ Pitcher_Choices = {
 
 class team (models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-   # coach = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
+    coach = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     team_name = models.CharField(max_length=20)
     wins = models.PositiveIntegerField()
     losses = models.PositiveIntegerField()
@@ -115,7 +115,7 @@ class Game(models.Model):
     home_score = models.PositiveIntegerField(default=0)
     away_score = models.PositiveIntegerField(default=0)
     winner = models.ForeignKey(team, on_delete=models.CASCADE, null=True)
-
+    
 
 class GamePlayerStats(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
@@ -147,4 +147,3 @@ class GamePitcherStats(models.Model):
     games = models.PositiveIntegerField(default=0)
     GS = models.PositiveIntegerField(default=0)
     AB = models.PositiveIntegerField(default=0)
-

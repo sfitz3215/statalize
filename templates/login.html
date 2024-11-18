@@ -1,5 +1,6 @@
 
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block body %}
     <div id="page-container">
         <section>
@@ -8,21 +9,21 @@
             </div>
         </section>
 
-        <div class="container border mt-5 pt-3 rounded-3">
+        <div class="container bg-dark border border-success mt-5 pt-3 rounded-3">
             <h2>Login</h2>
 
             <form method="post" enctype="multipart/form-data">
                 {% csrf_token %}
-                {{ form.as_p }}
+                {% crispy form %}
                 {% if not first %}
                     <p>Incorrect Username or Password</p>
                 {% endif%}
-                <button type="submit">Login</button>
+                <!--<button type="submit">Login</button>-->
             </form>
             <div class ="container pb-3"></div>
         </div>
 
-        <div class="container border mt-3 pt-3 rounded-3">
+        <div class="container bg-dark border border-success mt-3 pt-3 rounded-3">
             <h4>Coach new on this platform?
                 <a href="{% url 'new_coach' %}">Click here!</a>
             </h4>

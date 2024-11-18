@@ -1,0 +1,171 @@
+{% extends 'base.html' %}
+{% block body %}
+<div class="container bg-dark border border-success mt-5 pt-3 rounded-3">
+    <h2>Create/Edit</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Save Game</button>
+    </form>
+    <div class ="container pb-3"></div>
+</div>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class = "container bg-dark border border-success mt-3 mb-3 mr-2 ml-2 pt-3 rounded-3">
+            <h1 class = "text-center">
+               {{ set_game.away_team }}
+            </h1>
+            <h4 class="text-center"><i>Away</i></h4>
+
+            <h4>Pitchers</h4>
+
+            <table class = "sortable table">
+                <tr>
+                    <td>Player Name</td>
+                    <td>G</td>
+                    <td>Hits</td>
+                    <td>AB</td>
+                    <td>BB</td>
+                    <td>SO</td>
+                    <td>1B</td>
+                    <td>2B</td>
+                    <td>3B</td>
+                    <td>HR</td>
+                    <td>Runs</td>
+                    <td>RBI</td>
+                    <td>SB</td>
+                    <td>SAC</td>
+                </tr>
+                      {% for person in away_team_player %}
+                    <tr>
+                        <td>{{person.player}}</td>
+                        <td>{{person.g}}</td>
+                        <td>{{person.hits}}</td>
+                        <td>{{person.AB}}</td>
+                        <td>{{person.BB}}</td>
+                        <td>{{person.SO}}</td>
+                        <td>{{person.Singles}}</td>
+                        <td>{{person.Doubles}}</td>
+                        <td>{{person.Triples}}</td>
+                        <td>{{person.HR}}</td>
+                        <td>{{person.Runs}}</td>
+                        <td>{{person.RBI}}</td>
+                        <td>{{person.SB}}</td>
+                        <td>{{person.SAC}}</td>
+                    </tr>
+                  {% endfor %}
+            </table>
+
+            <h4>Other Players</h4>
+
+            <table class = "sortable table">
+                <tr>
+                    <td>Pitcher Name</td>
+                    <td>G</td>
+                    <td>Hits</td>
+                    <td>BB</td>
+                    <td>SO</td>
+                    <td>HR</td>
+                    <td>Runs</td>
+                    <td>ER</td>
+                    <td>IP</td>
+                </tr>
+                      {% for person in away_team_pitcher %}
+                    <tr>
+                        <td>{{person.pitcher}}</td>
+                        <td>{{person.games}}</td>
+                        <td>{{person.hits}}</td>
+                        <td>{{person.walks}}</td>
+                        <td>{{person.SO}}</td>
+                        <td>{{person.HR}}</td>
+                        <td>{{person.runs}}</td>
+                        <td>{{person.ER}}</td>
+                        <td>{{person.IP}}</td>
+                    </tr>
+                  {% endfor %}
+            </table>
+            <div class ="container pb-3"></div>
+        </div>
+    </div>
+
+    <div class="col-lg-6">
+        <div class = "container bg-dark border border-success mt-3 mb-3 mr-2 ml-2 pt-3 rounded-3">
+            <h1 class = "text-center">
+                {{ set_game.home_team }}
+            </h1>
+            <h4 class="text-center"><i>Home</i></h4>
+
+            <h4>Pitchers</h4>
+
+            <table class = "sortable table">
+                <tr>
+                    <td>Player Name</td>
+                    <td>G</td>
+                    <td>Hits</td>
+                    <td>AB</td>
+                    <td>BB</td>
+                    <td>SO</td>
+                    <td>1B</td>
+                    <td>2B</td>
+                    <td>3B</td>
+                    <td>HR</td>
+                    <td>Runs</td>
+                    <td>RBI</td>
+                    <td>SB</td>
+                    <td>SAC</td>
+                </tr>
+                      {% for person in home_team_player %}
+                    <tr>
+                        <td>{{person.player}}</td>
+                        <td>{{person.g}}</td>
+                        <td>{{person.hits}}</td>
+                        <td>{{person.AB}}</td>
+                        <td>{{person.BB}}</td>
+                        <td>{{person.SO}}</td>
+                        <td>{{person.Singles}}</td>
+                        <td>{{person.Doubles}}</td>
+                        <td>{{person.Triples}}</td>
+                        <td>{{person.HR}}</td>
+                        <td>{{person.Runs}}</td>
+                        <td>{{person.RBI}}</td>
+                        <td>{{person.SB}}</td>
+                        <td>{{person.SAC}}</td>
+                    </tr>
+                  {% endfor %}
+            </table>
+
+            <h4>Other Players</h4>
+
+            <table class = "sortable table">
+                <tr>
+                    <td>Pitcher Name</td>
+                    <td>G</td>
+                    <td>Hits</td>
+                    <td>BB</td>
+                    <td>SO</td>
+                    <td>HR</td>
+                    <td>Runs</td>
+                    <td>ER</td>
+                    <td>IP</td>
+                </tr>
+                      {% for person in home_team_pitcher %}
+                    <tr>
+                        <td>{{person.pitcher}}</td>
+                        <td>{{person.games}}</td>
+                        <td>{{person.hits}}</td>
+                        <td>{{person.walks}}</td>
+                        <td>{{person.SO}}</td>
+                        <td>{{person.HR}}</td>
+                        <td>{{person.runs}}</td>
+                        <td>{{person.ER}}</td>
+                        <td>{{person.IP}}</td>
+                    </tr>
+                  {% endfor %}
+            </table>
+            <div class ="container pb-3"></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

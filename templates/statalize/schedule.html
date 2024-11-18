@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% block body %}
-<div class = "container border mt-5 pt-3 rounded-3">
+<div class = "container bg-dark border border-success mt-5 pt-3 rounded-3">
       <h2>
           Upcoming Games:
       </h2>
@@ -18,7 +18,7 @@
             <td>{{ game.home_team }}</td>
             <td>{{ game.away_team }}</td>
             {% if user == game.home_team.coach or user.username == 'admin' %}
-                <td><a href="{% url 'logout' %}">Adjust</a></td>
+                <td><a href="{% url 'edit_game' game_id=game.id %}">Submit Game Stats</a></td>
             {% endif %}
         </tr>
         {% endfor %}
