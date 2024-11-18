@@ -107,7 +107,7 @@
     </tr>
   {% endfor %}
 </table>
-    {% if user == game.home_team.coach or user.username == 'admin' %}
+    {% if user == Team.coach or user.username == 'admin' %}
     <a href="{% url 'edit_team' team_id=Team.id %}">edit</a>
     {% endif %}
 
