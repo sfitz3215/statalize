@@ -347,12 +347,23 @@ def game_edit(request, game_id):
 
 def edit_player_game(request, game_id, player_id):
     set_game = get_object_or_404(Game, id=game_id)
-    set_player = get_object_or_404(GamePlayerStats, game_id=game_id, player_id=player_id)
+    tempPlayer = get_object_or_404(player, id= player_id)
+    set_player = GamePlayerStats.objects.get_or_create(game=game_id, player_id=player_id)
     form = GamePlayerForm(data=request.POST or None, game=game_id, player=player_id)
     if form.is_valid():
-        set_player = form.save(commit=False)
-        set_player.game = set_game
-        set_player.player = form.cleaned_data['player']
+        AB = form.cleaned_data['AB']
+        BB = form.cleaned_data['BB']
+        SO = form.cleaned_data['SO']
+        Singles = form.cleaned_data['Singles']
+        Doubles = form.cleaned_data['Doubles']
+        Triples = form.cleaned_data['Triples']
+        HR = form.cleaned_data['HR']
+        Runs = form.cleaned_data['Runs']
+        RBI = form.cleaned_data['RBI']
+        SB = form.cleaned_data['SB']
+        SAC = form.cleaned_data['SAC']
+
+        set_player= GamePlayerStats(game=set_game,player=tempPlayer,AB=AB, BB=BB,SO=SO,Singles=Singles,Doubles=Doubles,Triples=Triples,HR=HR,Runs=Runs,RBI=RBI,SB=SB,SAC=SAC)
         set_player.save()
         return redirect('edit_game', game_id=set_game.id)
     return render(request, 'edit_players_game.html',{'form': form, 'set_game': set_game, 'set_player': set_player})
