@@ -316,19 +316,19 @@ def game_edit(request, game_id):
     home_team_pitcher = []
 
     for person in away_team:
-        game_player = get_object_or_404(GamePlayerStats, player=person)
+        game_player = get_object_or_404(GamePlayerStats, game_id, player=person)
         away_team_player.append(game_player)
 
     for person in away_teamp:
-        game_player = get_object_or_404(GamePitcherStats, pitcher=person)
+        game_player = get_object_or_404(GamePitcherStats,game_id,  pitcher=person)
         away_team_pitcher.append(game_player)
 
     for person in home_team:
-        game_player = get_object_or_404(GamePlayerStats, player=person)
+        game_player = get_object_or_404(GamePlayerStats, game_id, player=person)
         home_team_player.append(game_player)
 
     for person in home_teamp:
-        game_player = get_object_or_404(GamePitcherStats, pitcher=person)
+        game_player = get_object_or_404(GamePitcherStats, game_id, pitcher=person)
         home_team_pitcher.append(game_player)
 
     if form.is_valid():
@@ -345,22 +345,26 @@ def game_edit(request, game_id):
         return redirect('home')
     return render(request, 'game.html', {'form': form, 'home_team_pitcher': home_team_pitcher, 'home_team_player': home_team_player, 'away_team_pitcher': away_team_pitcher, 'away_team_player': away_team_player, 'set_game': set_game})
 
-def edit_player_game(request, game_id, is_pitcher):
+def edit_player_game(request, game_id, player_id):
     set_game = get_object_or_404(Game, id=game_id)
-    if is_pitcher:
-        form = AwayTeamPitcherForm(data=request.POST or None, game_id=game_id)
-        if form.is_valid():
-            pitcher_stats = form.save(commit=False)
-            pitcher_stats.game = set_game
-            pitcher_stats.pitcher = form.cleaned_data['pitcher']
-            pitcher_stats.save()
-            return redirect('edit_game', game_id=set_game.id)
-    else:
-        form = AwayTeamPlayerForm(data=request.POST or None, game_id=game_id)
-        if form.is_valid():
-            player_stats = form.save(commit=False)
-            player_stats.game = set_game
-            player_stats.player = form.cleaned_data['player']
-            player_stats.save()
-            return redirect('edit_away_team', game_id=set_game.id)
-    return render(request, 'game.html',{'form': form, 'set_game': set_game, 'is_pitcher': is_pitcher})
+    set_player = get_object_or_404(GamePlayerStats, id=player_id)
+    form = GamePlayerForm(data=request.POST or None, game_id=game_id)
+    if form.is_valid():
+        set_player = form.save(commit=False)
+        set_player.game = set_game
+        set_player.player = form.cleaned_data['player']
+        set_player.save()
+        return redirect('edit_game', game_id=set_game.id)
+    return render(request, 'edit_players_game.html',{'form': form, 'set_game': set_game, 'set_player': set_player})
+
+def edit_pitcher_game(request, game_id, pitcher_id):
+    set_game = get_object_or_404(Game, id=game_id)
+    set_pitcher = get_object_or_404(GamePitcherStats, id=pitcher_id)
+    form = GamePitcherForm(data=request.POST or None, game_id=game_id)
+    if form.is_valid():
+        set_pitcher = form.save(commit=False)
+        set_pitcher.game = set_game
+        set_pitcher.pitcher = form.cleaned_data['pitcher']
+        set_pitcher.save()
+        return redirect('edit_game', game_id=set_game.id)
+    return render(request, 'edit_pitcher_game.html',{'form': form, 'set_game': set_game, 'set_pitcher': set_pitcher})

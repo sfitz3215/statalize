@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block body %}
+    <h2>Add Away Team Players for {{ game.away_team }}</h2>
+
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Player Stats</button>
+    </form>
+
+{% endblock %}
