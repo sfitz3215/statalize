@@ -366,6 +366,7 @@ def edit_player_game(request, game_id, player_id):
     roster_player = get_object_or_404(player, id=player_id)
     form = GamePlayerForm(data=request.POST or None, game=game_id, player=player_id)
     if form.is_valid():
+        GamePlayerStats.objects.filter(game=game_id, player_id=player_id).delete()
         AB = form.cleaned_data['AB']
         BB = form.cleaned_data['BB']
         SO = form.cleaned_data['SO']

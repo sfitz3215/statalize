@@ -216,7 +216,7 @@ class GamePitcherForm(forms.Form):
             self.helper = FormHelper(self)
             self.helper.form_action = reverse_lazy('home')
             self.helper.form_method = 'POST'
-            self.helper.add_input(Submit('submit', 'Login'))
+            self.helper.add_input(Submit('submit', 'Add Pitcher Stats'))
             stats = GamePitcherStats.objects.get(game=game, pitcher=pitcher)
             self.fields['SO'].initial = stats.SO
             self.fields['hits'].initial = stats.hits
