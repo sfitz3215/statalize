@@ -342,10 +342,10 @@ def game_edit(request, game_id):
 
         set_game(home_score=home_score, away_score=away_score, winner=winner)
         set_game.save()
-        return redirect('add_away_team', game_id=set_game.id)  # Redirect to add player stats after creation
+        return redirect('home')
     return render(request, 'game.html', {'form': form, 'home_team_pitcher': home_team_pitcher, 'home_team_player': home_team_player, 'away_team_pitcher': away_team_pitcher, 'away_team_player': away_team_player, 'set_game': set_game})
 
-def add_away_team(request, game_id, is_pitcher):
+def edit_player_game(request, game_id, is_pitcher):
     set_game = get_object_or_404(Game, id=game_id)
     if is_pitcher:
         form = AwayTeamPitcherForm(data=request.POST or None, game_id=game_id)
@@ -362,26 +362,5 @@ def add_away_team(request, game_id, is_pitcher):
             player_stats.game = set_game
             player_stats.player = form.cleaned_data['player']
             player_stats.save()
-            return redirect('edit_game', game_id=set_game.id)
-    return render(request, 'game.html',{'form': form})
-  
-
-def add_home_team(request, game_id, is_pitcher):
-    set_game = get_object_or_404(Game, id=game_id)
-    if is_pitcher:
-        form = HomeTeamPitcherForm(data=request.POST or None, game_id=game_id)
-        if form.is_valid():
-            pitcher_stats = form.save(commit=False)
-            pitcher_stats.game = set_game
-            pitcher_stats.pitcher = form.cleaned_data['pitcher']
-            pitcher_stats.save()
-            return redirect('edit_game', game_id=set_game.id)
-    else:
-        form = HomeTeamPlayerForm(data=request.POST or None, game_id=game_id)
-        if form.is_valid():
-            player_stats = form.save(commit=False)
-            player_stats.game = set_game
-            player_stats.player = form.cleaned_data['player']
-            player_stats.save()
-            return redirect('edit_game', game_id=set_game.id)
-    return render(request, 'game.html',{'form': form})
+            return redirect('edit_away_team', game_id=set_game.id)
+    return render(request, 'game.html',{'form': form, 'set_game': set_game, 'is_pitcher': is_pitcher})

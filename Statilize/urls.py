@@ -34,6 +34,6 @@ urlpatterns = [
     path('schedule/new_game/', new_game, name='new_game'),
     path('<uuid:team_id>/edit_team/', edit_team, name='edit_team'),
     path('game/<game_id>/', game_edit, name ='edit_game'),
-    path('game/<game_id>/add_away_team/<int:is_pitcher>/', add_away_team, name='add_away_team_players'),
-    path('game/<game_id>/add_home_team/<int:is_pitcher>/', add_home_team, name='add_home_team_players'),
+    path('game/<game_id>/edit_away_team/<int:is_pitcher>/', edit_player_game, name='edit_player_game'),
+    path('game/<game_id>/edit_home_team/<int:is_pitcher>/', edit_player_game, name='edit_pitcher_game'),
 ]
