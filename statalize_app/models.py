@@ -132,7 +132,8 @@ class GamePlayerStats(models.Model):
     RBI = models.PositiveIntegerField(default=0)
     SB = models.PositiveIntegerField(default=0)
     SAC = models.PositiveIntegerField(default=0)
-
+    class Meta:
+        unique_together = ('game', 'player')
 
 class GamePitcherStats(models.Model):
     game = models.ForeignKey(Game, on_delete=models.CASCADE)
