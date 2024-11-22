@@ -1,11 +1,12 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
 {% block body %}
-    <h2>Add Away Team Players for {{ game.away_team }}</h2>
+<div id="page-container" class="container bg-dark border border-success mt-5 pt-3 rounded-3">
+    <h2>{{ set_pitcher.pitcher }}</h2>
 
     <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Add Player Stats</button>
+         {% crispy form %}
     </form>
-
+</div>
 {% endblock %}

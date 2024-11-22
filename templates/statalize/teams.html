@@ -3,7 +3,7 @@
 {% block body %}
 <div class = "container bg-dark border border-success mt-3 rounded-3">
   <h2>
-      Teams
+        Players
   </h2>
 <table class=" sortable table">
 <tr>
@@ -107,7 +107,7 @@
     </tr>
   {% endfor %}
 </table>
-    {% if user == game.home_team.coach or user.username == 'admin' %}
+    {% if user == Team.coach or user.username == 'admin' %}
     <a href="{% url 'edit_team' team_id=Team.id %}">edit</a>
     {% endif %}
 
