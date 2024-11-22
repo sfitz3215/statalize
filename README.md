@@ -1,7 +1,7 @@
 This application is a web app that is targeted for high school or low level collegiate baseball programs that would like to track and scout season long stats for all teams on the application. 
 
 In order to have access to all of the features you must be an admin. 
-Admin logg in is 
+Admin login is 
 
 Username: admin 
 
