@@ -24,7 +24,6 @@
             <table class = "sortable table">
                 <tr>
                     <td>Player Name</td>
-                    <td>G</td>
                     <td>AB</td>
                     <td>BB</td>
                     <td>SO</td>
@@ -40,7 +39,6 @@
                       {% for person in away_team_player %}
                     <tr>
                         <td>{{person.player}}</td>
-                        <td>{{person.games}}</td>
                         <td>{{person.AB}}</td>
                         <td>{{person.BB}}</td>
                         <td>{{person.SO}}</td>
@@ -103,7 +101,6 @@
             <table class = "sortable table">
                 <tr>
                     <td>Player Name</td>
-                    <td>G</td>
                     <td>AB</td>
                     <td>BB</td>
                     <td>SO</td>
@@ -119,7 +116,6 @@
                       {% for person in home_team_player %}
                     <tr>
                         <td>{{person.player}}</td>
-                        <td>{{person.g}}</td>
                         <td>{{person.AB}}</td>
                         <td>{{person.BB}}</td>
                         <td>{{person.SO}}</td>
