@@ -401,7 +401,7 @@ def edit_player_game(request, game_id, player_id):
         roster_player.player_Doubles += Doubles
         roster_player.player_Triples += Triples
         roster_player.player_HR += HR
-        roster_player.player_hits+=(Singles + Doubles + Triples + HR)
+        roster_player.player_hits += (Singles + Doubles + Triples + HR)
         roster_player.player_Runs += Runs
         roster_player.player_RBI += RBI
         roster_player.player_SB += SB
@@ -442,16 +442,16 @@ def edit_pitcher_game(request, game_id, pitcher_id):
 
         set_pitcher.save()
 
-        roster_pitcher.pitcher_SO = SO
-        roster_pitcher.pitcher_hits = hits
-        roster_pitcher.pitcher_walks = walks
-        roster_pitcher.pitcher_HR = HR
-        roster_pitcher.pitcher_IP = IP
-        roster_pitcher.pitcher_runs = runs
-        roster_pitcher.pitcher_ER = ER
-        roster_pitcher.pitcher_games = games
-        roster_pitcher.pitcher_GS = GS
-        roster_pitcher.pitcher_AB = AB
+        roster_pitcher.pitcher_SO += SO
+        roster_pitcher.pitcher_hits += hits
+        roster_pitcher.pitcher_walks += walks
+        roster_pitcher.pitcher_HR += HR
+        roster_pitcher.pitcher_IP += IP
+        roster_pitcher.pitcher_runs += runs
+        roster_pitcher.pitcher_ER += ER
+        roster_pitcher.pitcher_games += games
+        roster_pitcher.pitcher_GS += GS
+        roster_pitcher.pitcher_AB += AB
 
         roster_pitcher.save()
         return redirect('edit_game', game_id=set_game.id)
